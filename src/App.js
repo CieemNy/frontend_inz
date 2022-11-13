@@ -9,16 +9,17 @@ import store from './store';
 
 function App() {
   return (
-    <Router>
-        <Layout>
-            <Routes>
-                <Route path='/' element={<Login/>}/>
-                <Route path='/home' element={<Home/>}/>
-                <Route path='/register' element={<Register/>}/>
-            </Routes>
-        </Layout>
-    </Router>
-    
+    <Provider store={store}>
+        <Router>
+            <Layout>
+                <Routes>
+                    <Route path='/' element={<Login/>}/>
+                    <Route path='/home' element={<Home/>}/>
+                    <Route path='/register' element={<Register/>}/>
+                </Routes>
+            </Layout>
+        </Router>
+    </Provider>
   );
 };
 
