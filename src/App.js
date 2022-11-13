@@ -4,6 +4,8 @@ import Home from './Pages/Home/Home';
 import Login from './Pages/Login/Login';
 import Register from './Pages/Register/Register';
 import Layout from './Layout/Layout';
+import {Provider} from 'react-redux';
+import store from './store';
 
 function App() {
   return (
