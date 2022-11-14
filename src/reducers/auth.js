@@ -53,7 +53,7 @@ export default function(state = initialState, action) {
             localStorage.removeItem('refresh');
             return {
                 ...state,
-                isAuthenticated: true,
+                isAuthenticated: false,
                 access: null,
                 refresh: null,
                 user: null

@@ -1,17 +1,62 @@
-import React from "react";
+import React, { Fragment } from "react";
 import { AppBar, Box, Toolbar, Typography } from '@mui/material';
 import { Link } from "react-router-dom";
+import { connect } from 'react-redux';
+import { logout } from "../actions/auth";
 
-const Navbar = () => {
+const Navbar = ({ logout, isAuthenticated }) => {
 
     const guest = () => {
-
-    }
+        return (
+            <Fragment>
+                <Box sx={{ display: { xs: 'none', sm: 'block' } }}>
+                    <Typography>
+                        <Link 
+                            to='/' 
+                            style={{ 
+                                textDecoration: 'none', 
+                                color: 'white' 
+                            }}>
+                            Logowanie
+                        </Link>
+                    </Typography>
+                </Box>
+                <Box sx={{ display: { xs: 'none', sm: 'block' }, padding: 2 }}>
+                    <Typography>
+                        <Link 
+                            to='/register'
+                            style={{ 
+                                textDecoration: 'none', 
+                                color: 'white' 
+                            }}
+                        >
+                            Rejestracja
+                        </Link>
+                    </Typography>
+                </Box>
+            </Fragment>
+        );
+    };
 
     const auth = () => {
+        return (
+            <Box sx={{ display: { xs: 'none', sm: 'block' } }}>
+            <Typography>
+                <a 
+                    href='/' 
+                    style={{ 
+                        textDecoration: 'none', 
+                        color: 'white' 
+                    }}
+                    onClick={logout}
+                >
+                    Wyloguj
+                </a>
+            </Typography>
+        </Box>
+        );
+    };
 
-    }
-    
     return (
         <Box sx={{ display: 'flex' }}>
             <AppBar component="nav">
@@ -23,35 +68,15 @@ const Navbar = () => {
                     >
                         System Zapisów na Projekt Zespołowy
                     </Typography>
-                    <Box sx={{ display: { xs: 'none', sm: 'block' } }}>
-                        <Typography>
-                            <Link 
-                                to='/' 
-                                style={{ 
-                                    textDecoration: 'none', 
-                                    color: 'white' 
-                                }}>
-                                Logowanie
-                            </Link>
-                        </Typography>
-                    </Box>
-                    <Box sx={{ display: { xs: 'none', sm: 'block' }, padding: 2 }}>
-                        <Typography>
-                            <Link 
-                                to='/register'
-                                style={{ 
-                                    textDecoration: 'none', 
-                                    color: 'white' 
-                                }}
-                            >
-                                Rejestracja
-                            </Link>
-                        </Typography>
-                    </Box>
+                    {isAuthenticated ? auth() : guest()}
                 </Toolbar>
             </AppBar>
         </Box>
     )
 }
 
-export default Navbar;
+const mapStateToProps = state => ({
+    isAuthenticated: state.auth.isAuthenticated
+});
+
+export default connect(mapStateToProps, { logout } ) (Navbar);
