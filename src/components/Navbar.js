@@ -3,6 +3,15 @@ import { AppBar, Box, Toolbar, Typography } from '@mui/material';
 import { Link } from "react-router-dom";
 
 const Navbar = () => {
+
+    const guest = () => {
+
+    }
+
+    const auth = () => {
+
+    }
+    
     return (
         <Box sx={{ display: 'flex' }}>
             <AppBar component="nav">

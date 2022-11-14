@@ -1,5 +1,5 @@
 import React, {useState} from "react";
-import {Link, Redirect} from 'react-router-dom';
+import {Link, Navigate} from 'react-router-dom';
 import {connect} from 'react-redux';
 import { Container, Box, Stack, Paper, TextField, Button, Typography } from '@mui/material';
 import { styled } from '@mui/material/styles';
@@ -12,7 +12,7 @@ const Item = styled(Paper)(({ theme }) => ({
     color: 'black',
   }));
 
-const Login = ({ login }) => {
+const Login = ({ login, isAuthenticated }) => {
 
     const [formData, setFormData] = useState({
         email: '',
@@ -28,6 +28,10 @@ const Login = ({ login }) => {
         console.log(email, password)
         login(email, password);
     };
+
+    if (isAuthenticated) {
+        return <Navigate to='/home'/>
+    }
 
     return (
         <Container sx={{
@@ -112,4 +116,8 @@ const Login = ({ login }) => {
     );
 }
 
-export default connect(null, { login }) (Login);
+const mapStateToProps = state => ({
+    isAuthenticated: state.auth.isAuthenticated
+});
+
+export default connect(mapStateToProps, { login }) (Login);
