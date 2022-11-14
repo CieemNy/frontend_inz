@@ -117,8 +117,8 @@ const Register = ({ register, isAuthenticated }) => {
                             <TextField
                                 id="outlined-basic" 
                                 type="password"
-                                label="Powtórz hasło"
-                                name="password"
+                                label="Potwierdź hasło"
+                                name="re_password"
                                 value={formData.re_password}
                                 onChange={event => onChange(event)}
                                 variant="outlined"
