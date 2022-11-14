@@ -1,33 +1,48 @@
 import React, {useState} from "react";
 import {Link, Redirect} from 'react-router-dom';
 import {connect} from 'react-redux';
-import { Container, Box, Stack, Paper, TextField, Button } from '@mui/material';
+import { Container, Box, Stack, Paper, TextField, Button, Typography } from '@mui/material';
 import { styled } from '@mui/material/styles';
+import { login } from "../../actions/auth";
 
 const Item = styled(Paper)(({ theme }) => ({
     ...theme.typography.body2,
     padding: theme.spacing(2),
     textAlign: 'center',
-    color: "black",
+    color: 'black',
   }));
 
-const Login = () => {
+const Login = ({ login }) => {
+
     const [formData, setFormData] = useState({
         email: '',
-        password: ''
+        password: '' 
     });
-    const {email, password} = formData;
-    const onChange = event => setFormData({...formData, [event.target.name]: event.target.value});
-    const onSubmit = event => {
-        event.preventDeafult();
-    }
+
+    const { email, password } = formData;
+
+    const onChange = e => setFormData({ ...formData, [e.target.name]: e.target.value });
+
+    const onSubmit = e => {
+        e.preventDefault();
+        console.log(email, password)
+        login(email, password);
+    };
+
     return (
-        <Container fixed>
+        <Container sx={{
+            justifyContent: 'center',
+            marginTop: 25
+        }}>
             <Box>
-                <Stack spacing={2}>
-                    <Item>Logowanie</Item>
-                </Stack>
-                <form onSubmit={event => onSubmit(event)}>
+                <Box>
+                    <Stack spacing={2}>
+                        <Item>
+                            <Typography>LOGOWANIE</Typography>
+                        </Item>
+                    </Stack>
+                </Box>
+                <form onSubmit={e => onSubmit(e)}>
                     <Box sx={{
                         padding: 2,
                         alignItems: "center",
@@ -40,18 +55,20 @@ const Login = () => {
                                 label="Email"
                                 variant="outlined"
                                 margin="dense"
-                                defaultValue={email}
+                                value={formData.email}
+                                onChange={event => onChange(event)}
                                 name="email"
                                 required
                             />
                         </Stack>
                         <Stack spacing={2}>
-                            <TextField 
+                            <TextField
                                 id="outlined-basic" 
                                 type="password"
                                 label="Hasło"
                                 name="password"
-                                defaultValue={password}
+                                value={formData.password}
+                                onChange={event => onChange(event)}
                                 variant="outlined"
                                 margin="normal"
                                 required
@@ -62,12 +79,20 @@ const Login = () => {
                         </Stack>    
                     </Box>
                 </form>
-                <Stack spacing={2}>
-                    <Item>Nie masz konta? <Link to='/register'> Zarejestruj się!</Link></Item>
-                </Stack>
+                <Box 
+                    sx={{
+                        padding: 5,
+                        alignItems: "center",
+                        justifyContent: "center"
+                    }}
+                >
+                    <Stack spacing={2}>
+                        <Item>Nie masz konta? <Link to='/register'> Zarejestruj się!</Link></Item>
+                    </Stack>
+                </Box>
             </Box>
         </Container>
     );
 }
 
-export default Login;
+export default connect(null, { login }) (Login);
