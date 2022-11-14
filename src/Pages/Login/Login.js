@@ -25,7 +25,6 @@ const Login = ({ login, isAuthenticated }) => {
 
     const onSubmit = e => {
         e.preventDefault();
-        console.log(email, password)
         login(email, password);
     };
 
