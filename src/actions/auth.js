@@ -4,6 +4,9 @@ import {
     LOGIN_FAIL,
     USER_LOADED_SUCCESS,
     USER_LOADED_FAIL,
+    AUTHENTICATED_SUCCESS,
+    AUTHENTICATED_FAIL,
+    LOGAUT
 } from './types';
 
 export const load_user = () => async dispatch => {
