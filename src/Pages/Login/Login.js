@@ -87,7 +87,24 @@ const Login = ({ login }) => {
                     }}
                 >
                     <Stack spacing={2}>
-                        <Item>Nie masz konta? <Link to='/register'> Zarejestruj się!</Link></Item>
+                        <Box>
+                            <Item>
+                                <Typography sx={{padding: 1}}>
+                                    Nie masz konta?
+                                </Typography>
+                                <Button variant="contained">
+                                    <Link 
+                                        to='/register'
+                                        style={{ 
+                                            textDecoration: 'none', 
+                                            color: 'white' 
+                                        }}
+                                    >
+                                        Zarejestruj się!
+                                    </Link>
+                                </Button> 
+                            </Item>
+                        </Box>
                     </Stack>
                 </Box>
             </Box>

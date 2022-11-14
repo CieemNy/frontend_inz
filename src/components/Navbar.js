@@ -1,5 +1,6 @@
 import React from "react";
 import { AppBar, Box, Toolbar, Typography } from '@mui/material';
+import { Link } from "react-router-dom";
 
 const Navbar = () => {
     return (
@@ -14,7 +15,29 @@ const Navbar = () => {
                         System Zapisów na Projekt Zespołowy
                     </Typography>
                     <Box sx={{ display: { xs: 'none', sm: 'block' } }}>
-                        <Typography>lorem ipsum</Typography>
+                        <Typography>
+                            <Link 
+                                to='/' 
+                                style={{ 
+                                    textDecoration: 'none', 
+                                    color: 'white' 
+                                }}>
+                                Logowanie
+                            </Link>
+                        </Typography>
+                    </Box>
+                    <Box sx={{ display: { xs: 'none', sm: 'block' }, padding: 2 }}>
+                        <Typography>
+                            <Link 
+                                to='/register'
+                                style={{ 
+                                    textDecoration: 'none', 
+                                    color: 'white' 
+                                }}
+                            >
+                                Rejestracja
+                            </Link>
+                        </Typography>
                     </Box>
                 </Toolbar>
             </AppBar>
