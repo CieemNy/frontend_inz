@@ -53,7 +53,7 @@ const Login = ({ login, isAuthenticated }) => {
                     }}>
                         <Stack spacing={2}>
                             <TextField 
-                                id="outlined-basic"
+                                id="email"
                                 type="email"
                                 label="Email"
                                 variant="outlined"
@@ -66,7 +66,7 @@ const Login = ({ login, isAuthenticated }) => {
                         </Stack>
                         <Stack spacing={2}>
                             <TextField
-                                id="outlined-basic" 
+                                id="haslo" 
                                 type="password"
                                 label="Hasło"
                                 name="password"

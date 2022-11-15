@@ -1,7 +1,7 @@
 import React, { useState } from "react";
-import { Link, useNavigate, Navigate } from 'react-router-dom';
+import { Link, Navigate } from 'react-router-dom';
 import { connect } from 'react-redux';
-import { Container, Box, Stack, Paper, TextField, Button, Typography, Alert } from '@mui/material';
+import { Container, Box, Stack, Paper, TextField, Button, Typography } from '@mui/material';
 import { styled } from '@mui/material/styles';
 import { register } from "../../actions/auth";
 
@@ -14,7 +14,6 @@ const Item = styled(Paper)(({ theme }) => ({
 
 const Register = ({ register, isAuthenticated }) => {
     const [accountCreated, setAccountCreated] = useState(false)
-    let navigate = useNavigate(); 
     const [formData, setFormData] = useState({
         email: '',
         name: '',
@@ -30,7 +29,6 @@ const Register = ({ register, isAuthenticated }) => {
 
     const onSubmit = e => {
         e.preventDefault();
-        let path = `/`
         if (!regex.test(email)){
             alert("Wprowadziłeś niepoprawny adres email!");
             return false
@@ -50,11 +48,14 @@ const Register = ({ register, isAuthenticated }) => {
         setTimeout(() => {
             alert("Udana Rejestracja! Możesz się zalogować!")
         }, 2000)
-        navigate(path);
     };
 
     if (isAuthenticated) {
         return <Navigate to='/home'/>
+    }
+
+    if(accountCreated) {
+        return <Navigate to='/'/>
     }
 
     return (
