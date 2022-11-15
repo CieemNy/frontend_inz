@@ -1,7 +1,7 @@
 import React, { useState } from "react";
-import { Link, Navigate } from 'react-router-dom';
+import { Link, useNavigate, Navigate } from 'react-router-dom';
 import { connect } from 'react-redux';
-import { Container, Box, Stack, Paper, TextField, Button, Typography } from '@mui/material';
+import { Container, Box, Stack, Paper, TextField, Button, Typography, Alert } from '@mui/material';
 import { styled } from '@mui/material/styles';
 import { register } from "../../actions/auth";
 
@@ -14,6 +14,7 @@ const Item = styled(Paper)(({ theme }) => ({
 
 const Register = ({ register, isAuthenticated }) => {
     const [accountCreated, setAccountCreated] = useState(false)
+    let navigate = useNavigate(); 
     const [formData, setFormData] = useState({
         email: '',
         name: '',
@@ -21,6 +22,7 @@ const Register = ({ register, isAuthenticated }) => {
         password: '',
         re_password: ''
     });
+    const regex = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
 
     const { email, name, surname, password, re_password } = formData;
 
@@ -28,19 +30,32 @@ const Register = ({ register, isAuthenticated }) => {
 
     const onSubmit = e => {
         e.preventDefault();
+        let path = `/`
+        if (!regex.test(email)){
+            alert("Wprowadziłeś niepoprawny adres email!");
+            return false
+        }
+        if (password.length<8){
+            alert("Hasło musi mieć conajmniej 8 znaków!")
+            return false
+        }
+        if (password!==re_password){
+            alert("Hasła różnią się!")
+            return false
+        }
         if (password === re_password){
             register(email, name, surname, password, re_password);
             setAccountCreated(true);
         }
+        setTimeout(() => {
+            alert("Udana Rejestracja! Możesz się zalogować!")
+        }, 2000)
+        navigate(path);
     };
 
     if (isAuthenticated) {
         return <Navigate to='/home'/>
     }
-    if (accountCreated) {
-        return <Navigate to='/'/>
-    }
-
 
     return (
         <Container sx={{
@@ -63,12 +78,12 @@ const Register = ({ register, isAuthenticated }) => {
                     }}>
                         <Stack spacing={2}>
                             <TextField 
-                                id="outlined-basic"
+                                id="email"
                                 type="email"
                                 label="Email"
                                 variant="outlined"
                                 margin="dense"
-                                value={formData.email}
+                                value={email}
                                 onChange={event => onChange(event)}
                                 name="email"
                                 required
@@ -76,12 +91,12 @@ const Register = ({ register, isAuthenticated }) => {
                         </Stack>
                         <Stack spacing={2}>
                             <TextField 
-                                id="outlined-basic"
+                                id="imie"
                                 type="text"
                                 label="Imie"
                                 variant="outlined"
                                 margin="dense"
-                                value={formData.name}
+                                value={name}
                                 onChange={event => onChange(event)}
                                 name="name"
                                 required
@@ -89,12 +104,12 @@ const Register = ({ register, isAuthenticated }) => {
                         </Stack>
                         <Stack spacing={2}>
                             <TextField 
-                                id="outlined-basic"
+                                id="nazwisko"
                                 type="text"
                                 label="Nazwisko"
                                 variant="outlined"
                                 margin="dense"
-                                value={formData.surname}
+                                value={surname}
                                 onChange={event => onChange(event)}
                                 name="surname"
                                 required
@@ -102,11 +117,11 @@ const Register = ({ register, isAuthenticated }) => {
                         </Stack>
                         <Stack spacing={2}>
                             <TextField
-                                id="outlined-basic" 
+                                id="haslo" 
                                 type="password"
                                 label="Hasło"
                                 name="password"
-                                value={formData.password}
+                                value={password}
                                 onChange={event => onChange(event)}
                                 variant="outlined"
                                 margin="dense"
@@ -115,11 +130,11 @@ const Register = ({ register, isAuthenticated }) => {
                         </Stack>
                         <Stack spacing={2}>
                             <TextField
-                                id="outlined-basic" 
+                                id="re_haslo" 
                                 type="password"
                                 label="Potwierdź hasło"
                                 name="re_password"
-                                value={formData.re_password}
+                                value={re_password}
                                 onChange={event => onChange(event)}
                                 variant="outlined"
                                 margin="normal"
