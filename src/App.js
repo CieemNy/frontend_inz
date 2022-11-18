@@ -3,6 +3,7 @@ import {BrowserRouter as Router, Routes, Route} from 'react-router-dom';
 import Home from './Pages/Home/Home';
 import Login from './Pages/Login/Login';
 import Register from './Pages/Register/Register';
+import Company from './Pages/Company/Company';
 import Layout from './Layout/Layout';
 import {Provider} from 'react-redux';
 import store from './store';
@@ -16,6 +17,7 @@ function App() {
                     <Route path='/' element={<Login/>}/>
                     <Route path='/home' element={<Home/>}/>
                     <Route path='/register' element={<Register/>}/>
+                    <Route path='/company' element={<Company/>}/>
                 </Routes>
             </Layout>
         </Router>
