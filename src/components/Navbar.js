@@ -40,20 +40,36 @@ const Navbar = ({ logout, isAuthenticated }) => {
 
     const auth = () => {
         return (
-            <Box sx={{ display: { xs: 'none', sm: 'block' } }}>
-            <Typography>
-                <a 
-                    href='/' 
-                    style={{ 
-                        textDecoration: 'none', 
-                        color: 'white' 
-                    }}
-                    onClick={logout}
-                >
-                    Wyloguj
-                </a>
-            </Typography>
-        </Box>
+            <Fragment>
+                <Box sx={{ display: { xs: 'none', sm: 'block' }, padding: 2 }}>
+                    <Typography>
+                        <a 
+                            href='/company' 
+                            style={{ 
+                                textDecoration: 'none', 
+                                color: 'white' 
+                            }}
+                            onClick={logout}
+                        >
+                            Firmy
+                        </a>
+                    </Typography>
+                </Box>
+                <Box sx={{ display: { xs: 'none', sm: 'block' } }}>
+                    <Typography>
+                        <a 
+                            href='/' 
+                            style={{ 
+                                textDecoration: 'none', 
+                                color: 'white' 
+                            }}
+                            onClick={logout}
+                        >
+                            Wyloguj
+                        </a>
+                    </Typography>
+                </Box>
+            </Fragment>
         );
     };
 
