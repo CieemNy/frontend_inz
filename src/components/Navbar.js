@@ -49,7 +49,6 @@ const Navbar = ({ logout, isAuthenticated }) => {
                                 textDecoration: 'none', 
                                 color: 'white' 
                             }}
-                            onClick={logout}
                         >
                             Firmy
                         </a>
