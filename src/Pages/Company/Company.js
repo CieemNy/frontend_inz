@@ -1,6 +1,6 @@
 import axios from 'axios';
 import React, {useEffect, useState} from 'react';
-import { Box, Card, CardContent, Button, Container, Typography, CardHeader } from '@mui/material';
+import { Box, Card, CardContent, CardActions, Button, Container, Typography, CardHeader } from '@mui/material';
 
 const Company = () => {
     const [companies, setCompanies] = useState([]);
@@ -57,25 +57,22 @@ const Company = () => {
                     <Card 
                         key={companies.id} 
                         sx={{
-                            display: 'flex',
                             padding: 2, 
                             margin: 2,
-                            alignItems: 'flex-end',
                             }}
                     >
                         <CardContent>
                             <Typography variant="h4">{companies.name}</Typography>
                             <Typography>{companies.description}</Typography>
                         </CardContent>
-                        <CardContent 
+                        <CardActions
                                 sx={{
                                     display: 'flex',
-                                    alignItems: 'flex-end',
-                                    justifyContent: 'flex-end',
+                                    justifyContent: 'right',
                                 }}
                             >
                                 <Button variant="contained">Szczegóły</Button>
-                        </CardContent>
+                        </CardActions>
                     </Card>
                 ))}
             </Box>
