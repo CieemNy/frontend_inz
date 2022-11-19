@@ -23,8 +23,7 @@ const AddCompany = () => {
         available_places: '',
         places: '',
     })
-    const { name, description, contact_number, contact_email, main_front, main_back, available_places, places} = formData;
-
+    
     const onChange = e => setFormData({ ...formData, [e.target.name]: e.target.value });
 
     const onSubmit = async (e) => {
@@ -43,7 +42,7 @@ const AddCompany = () => {
 
     if(companytCreated) {
       return <Navigate to='/company'/>
-  }
+    }
 
     return (
         <Container sx={{
