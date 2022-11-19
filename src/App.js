@@ -8,6 +8,7 @@ import AddCompany from './Pages/Company/add/AddCompany';
 import Layout from './Layout/Layout';
 import {Provider} from 'react-redux';
 import store from './store';
+import CompanyDetail from './Pages/Company/id/CompanyDetail';
 
 function App() {
   return (
@@ -20,6 +21,7 @@ function App() {
                     <Route path='/register' element={<Register/>}/>
                     <Route path='/company' element={<Company/>}/>
                     <Route path='/company/add' element={<AddCompany/>}/>
+                    <Route path='/company/:companiesId' element={<CompanyDetail/>}/>
                 </Routes>
             </Layout>
         </Router>

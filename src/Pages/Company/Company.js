@@ -1,6 +1,7 @@
 import axios from 'axios';
 import React, {useEffect, useState} from 'react';
-import { Box, Card, CardContent, CardActions, Button, Container, Typography, CardHeader } from '@mui/material';
+import { Link } from 'react-router-dom';
+import { Box, Card, CardContent, CardActions, Button, Container, Typography } from '@mui/material';
 
 const Company = () => {
     const [companies, setCompanies] = useState([]);
@@ -13,6 +14,7 @@ const Company = () => {
         })
         setCompanies(res);
     }
+    console.log(companies)
     useEffect(() => {
         if(!didFetch){
             setDidFetch(true)
@@ -71,7 +73,17 @@ const Company = () => {
                                     justifyContent: 'right',
                                 }}
                             >
-                                <Button variant="contained">Szczegóły</Button>
+                                <Link
+                                    to={`/company/${companies.id}`}
+                                    style={{ 
+                                        textDecoration: 'none', 
+                                        color: 'white' 
+                                    }}
+                                >
+                                    <Button variant="contained" >
+                                        Szczegóły
+                                    </Button>
+                                </Link>
                         </CardActions>
                     </Card>
                 ))}
