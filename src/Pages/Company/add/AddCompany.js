@@ -12,7 +12,7 @@ const Item = styled(Paper)(({ theme }) => ({
   }));
 
 const AddCompany = () => {
-
+    const [companytCreated, setCompanyCreated] = useState(false)
     const [formData, setFormData] = useState({
         name: '',
         description: '',
@@ -38,7 +38,12 @@ const AddCompany = () => {
         } catch (e) {
           alert(e)
         }
+        setCompanyCreated(true);
     };
+
+    if(companytCreated) {
+      return <Navigate to='/company'/>
+  }
 
     return (
         <Container sx={{
