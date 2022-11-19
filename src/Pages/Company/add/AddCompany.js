@@ -2,6 +2,7 @@ import React, {useState} from "react";
 import {Link, Navigate} from 'react-router-dom';
 import { Container, Box, Stack, Paper, TextField, Button, Typography, TextareaAutosize } from '@mui/material';
 import { styled } from '@mui/material/styles';
+import axios from "axios";
 
 const Item = styled(Paper)(({ theme }) => ({
     ...theme.typography.body2,
@@ -19,16 +20,24 @@ const AddCompany = () => {
         contact_email: '',
         main_front: '',
         main_back: '',
-        available_places:'',
-        places:'',
-    });
-
+        available_places: '',
+        places: '',
+    })
     const { name, description, contact_number, contact_email, main_front, main_back, available_places, places} = formData;
 
     const onChange = e => setFormData({ ...formData, [e.target.name]: e.target.value });
 
-    const onSubmit = e => {
+    const onSubmit = async (e) => {
         e.preventDefault();
+        try {
+          const res = await axios.post('http://localhost:8000/accounts/company/add', formData, {
+            headers: {
+              'Authorization': `JWT ${localStorage.getItem('access')}`
+          }
+          })
+        } catch (e) {
+          alert(e)
+        }
     };
 
     return (
@@ -97,7 +106,7 @@ const AddCompany = () => {
                               type="text"
                               label="E-mail Kontaktowy"
                               name="contact_email"
-                              value={formData.contact_number}
+                              value={formData.contact_email}
                               onChange={event => onChange(event)}
                               variant="outlined"
                               margin="dense"
