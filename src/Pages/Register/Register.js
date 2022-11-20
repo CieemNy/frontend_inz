@@ -4,6 +4,8 @@ import { connect } from 'react-redux';
 import { Container, Box, Stack, Paper, TextField, Button, Typography } from '@mui/material';
 import { styled } from '@mui/material/styles';
 import { register } from "../../actions/auth";
+import { setAlert } from "../../actions/alert";
+import Swal from 'sweetalert2';
 
 const Item = styled(Paper)(({ theme }) => ({
     ...theme.typography.body2,
@@ -12,7 +14,7 @@ const Item = styled(Paper)(({ theme }) => ({
     color: 'black',
   }));
 
-const Register = ({ register, isAuthenticated }) => {
+const Register = ({ setAlert, register, isAuthenticated }) => {
     const [accountCreated, setAccountCreated] = useState(false)
     const [formData, setFormData] = useState({
         email: '',
@@ -38,7 +40,7 @@ const Register = ({ register, isAuthenticated }) => {
             return false
         }
         if (password!==re_password){
-            alert("Hasła różnią się!")
+            setAlert('Passwords do not match', 'error');
             return false
         }
         if (password === re_password){
@@ -184,4 +186,4 @@ const mapStateToProps = state => ({
     isAuthenticated: state.auth.isAuthenticated
 });
 
-export default connect(mapStateToProps, { register }) (Register);
+export default connect(mapStateToProps, { setAlert, register }) (Register);
