@@ -32,15 +32,30 @@ const Register = ({ setAlert, register, isAuthenticated }) => {
     const onSubmit = e => {
         e.preventDefault();
         if (!regex.test(email)){
-            alert("Wprowadziłeś niepoprawny adres email!");
+            setAlert('Wprowadziłeś niepoprawny adres email!', 'error');
+            Swal.fire({
+                icon: 'error',
+                title: 'Oops...',
+                text: 'Wprowadziłeś niepoprawny adres email!',
+              })
             return false
         }
         if (password.length<8){
-            alert("Hasło musi mieć conajmniej 8 znaków!")
+            setAlert('Hasło musi mieć conajmniej 8 znaków!', 'error');
+            Swal.fire({
+                icon: 'error',
+                title: 'Oops...',
+                text: 'Hasło musi mieć conajmniej 8 znaków!',
+              })
             return false
         }
         if (password!==re_password){
-            setAlert('Passwords do not match', 'error');
+            setAlert('Hasła nie są takie same!', 'error');
+            Swal.fire({
+                icon: 'error',
+                title: 'Oops...',
+                text: 'Hasła nie są takie same!',
+              })
             return false
         }
         if (password === re_password){
@@ -48,7 +63,10 @@ const Register = ({ setAlert, register, isAuthenticated }) => {
             setAccountCreated(true);
         }
         setTimeout(() => {
-            alert("Udana Rejestracja! Możesz się zalogować!")
+            Swal.fire({
+                icon: 'success',
+                text: 'Zostałeś pomyślnie zarejestrowany!',
+              })
         }, 2000)
     };
 
