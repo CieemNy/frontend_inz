@@ -40,20 +40,35 @@ const Navbar = ({ logout, isAuthenticated }) => {
 
     const auth = () => {
         return (
-            <Box sx={{ display: { xs: 'none', sm: 'block' } }}>
-            <Typography>
-                <a 
-                    href='/' 
-                    style={{ 
-                        textDecoration: 'none', 
-                        color: 'white' 
-                    }}
-                    onClick={logout}
-                >
-                    Wyloguj
-                </a>
-            </Typography>
-        </Box>
+            <Fragment>
+                <Box sx={{ display: { xs: 'none', sm: 'block' }, padding: 2 }}>
+                    <Typography>
+                        <a 
+                            href='/company' 
+                            style={{ 
+                                textDecoration: 'none', 
+                                color: 'white' 
+                            }}
+                        >
+                            Firmy
+                        </a>
+                    </Typography>
+                </Box>
+                <Box sx={{ display: { xs: 'none', sm: 'block' } }}>
+                    <Typography>
+                        <a 
+                            href='/' 
+                            style={{ 
+                                textDecoration: 'none', 
+                                color: 'white' 
+                            }}
+                            onClick={logout}
+                        >
+                            Wyloguj
+                        </a>
+                    </Typography>
+                </Box>
+            </Fragment>
         );
     };
 
@@ -66,7 +81,15 @@ const Navbar = ({ logout, isAuthenticated }) => {
                         component="div"
                         sx={{ flexGrow: 1, display: { xs: 'none', sm: 'block' } }}
                     >
-                        System Zapisów na Projekt Zespołowy
+                        <a 
+                            href='/home' 
+                            style={{ 
+                                textDecoration: 'none', 
+                                color: 'white' 
+                            }}
+                        >
+                            System Zapisów na Projekt Zespołowy
+                        </a>
                     </Typography>
                     {isAuthenticated ? auth() : guest()}
                 </Toolbar>

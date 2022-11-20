@@ -4,6 +4,8 @@ import { connect } from 'react-redux';
 import { Container, Box, Stack, Paper, TextField, Button, Typography } from '@mui/material';
 import { styled } from '@mui/material/styles';
 import { register } from "../../actions/auth";
+import { setAlert } from "../../actions/alert";
+import Swal from 'sweetalert2';
 
 const Item = styled(Paper)(({ theme }) => ({
     ...theme.typography.body2,
@@ -12,7 +14,7 @@ const Item = styled(Paper)(({ theme }) => ({
     color: 'black',
   }));
 
-const Register = ({ register, isAuthenticated }) => {
+const Register = ({ setAlert, register, isAuthenticated }) => {
     const [accountCreated, setAccountCreated] = useState(false)
     const [formData, setFormData] = useState({
         email: '',
@@ -30,24 +32,41 @@ const Register = ({ register, isAuthenticated }) => {
     const onSubmit = e => {
         e.preventDefault();
         if (!regex.test(email)){
-            alert("Wprowadziłeś niepoprawny adres email!");
+            setAlert('Wprowadziłeś niepoprawny adres email!', 'error');
+            Swal.fire({
+                icon: 'error',
+                title: 'Oops...',
+                text: 'Wprowadziłeś niepoprawny adres email!',
+              })
             return false
         }
-        if (password.length<8){
-            alert("Hasło musi mieć conajmniej 8 znaków!")
+        if (password.length<9){
+            setAlert('Hasło musi mieć conajmniej 9 znaków!', 'error');
+            Swal.fire({
+                icon: 'error',
+                title: 'Oops...',
+                text: 'Hasło musi mieć conajmniej 9 znaków!',
+              })
             return false
         }
         if (password!==re_password){
-            alert("Hasła różnią się!")
+            setAlert('Hasła nie są takie same!', 'error');
+            Swal.fire({
+                icon: 'error',
+                title: 'Oops...',
+                text: 'Hasła nie są takie same!',
+              })
             return false
         }
         if (password === re_password){
             register(email, name, surname, password, re_password);
-            setAccountCreated(true);
+            
         }
-        setTimeout(() => {
-            alert("Udana Rejestracja! Możesz się zalogować!")
-        }, 2000)
+        Swal.fire({
+            icon: 'success',
+            text: 'Zostałeś pomyślnie zarejestrowany!',
+            })
+        setAccountCreated(true);
     };
 
     if (isAuthenticated) {
@@ -61,7 +80,7 @@ const Register = ({ register, isAuthenticated }) => {
     return (
         <Container sx={{
             justifyContent: 'center',
-            marginTop: 25
+            marginTop: 15
         }}>
             <Box>
                 <Box>
@@ -184,4 +203,4 @@ const mapStateToProps = state => ({
     isAuthenticated: state.auth.isAuthenticated
 });
 
-export default connect(mapStateToProps, { register }) (Register);
+export default connect(mapStateToProps, { setAlert, register }) (Register);

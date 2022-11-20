@@ -10,6 +10,7 @@ import {
     REGISTER_FAIL,
     LOGOUT
 } from './types';
+import { setAlert } from './alert';
 
 export const checkAuthenticated = () => async dispatch => {
     if (localStorage.getItem('access')) {
@@ -91,10 +92,12 @@ export const login = (email, password) => async dispatch => {
         });
 
         dispatch(load_user());
+        dispatch(setAlert('Zostałeś zalogowany!', 'success'));
     } catch (err) {
         dispatch({
             type: LOGIN_FAIL
         })
+        dispatch(setAlert('Podałeś błędne dane podczas logowania!', 'error'));
     }
 };
 
@@ -119,6 +122,7 @@ export const register = (email, name, surname, password, re_password) => async d
         dispatch({
             type: REGISTER_FAIL
         })
+        dispatch(setAlert('Wystąpił błąd podczas rejestracji!', 'error'));
     }
 };
 
@@ -126,4 +130,5 @@ export const logout = () => dispatch => {
     dispatch({
         type: LOGOUT
     });
+    dispatch(setAlert('Zostałeś pomyślnie wylogowany', 'success'));
 };

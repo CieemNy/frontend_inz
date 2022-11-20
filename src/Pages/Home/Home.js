@@ -14,9 +14,10 @@ const Home = () => {
         }
         getUser();
     }, [])
+    console.log(userData.is_superuser)
     return (
         <div>
-            tes
+            {userData.is_superuser}
         </div>
     );
 };
