@@ -40,12 +40,12 @@ const Register = ({ setAlert, register, isAuthenticated }) => {
               })
             return false
         }
-        if (password.length<8){
-            setAlert('Hasło musi mieć conajmniej 8 znaków!', 'error');
+        if (password.length<9){
+            setAlert('Hasło musi mieć conajmniej 9 znaków!', 'error');
             Swal.fire({
                 icon: 'error',
                 title: 'Oops...',
-                text: 'Hasło musi mieć conajmniej 8 znaków!',
+                text: 'Hasło musi mieć conajmniej 9 znaków!',
               })
             return false
         }
@@ -60,14 +60,13 @@ const Register = ({ setAlert, register, isAuthenticated }) => {
         }
         if (password === re_password){
             register(email, name, surname, password, re_password);
-            setAccountCreated(true);
+            
         }
-        setTimeout(() => {
-            Swal.fire({
-                icon: 'success',
-                text: 'Zostałeś pomyślnie zarejestrowany!',
-              })
-        }, 2000)
+        Swal.fire({
+            icon: 'success',
+            text: 'Zostałeś pomyślnie zarejestrowany!',
+            })
+        setAccountCreated(true);
     };
 
     if (isAuthenticated) {
