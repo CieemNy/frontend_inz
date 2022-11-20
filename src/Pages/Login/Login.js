@@ -4,6 +4,7 @@ import {connect} from 'react-redux';
 import { Container, Box, Stack, Paper, TextField, Button, Typography } from '@mui/material';
 import { styled } from '@mui/material/styles';
 import { login } from "../../actions/auth";
+import Swal from 'sweetalert2';
 
 const Item = styled(Paper)(({ theme }) => ({
     ...theme.typography.body2,
@@ -26,12 +27,14 @@ const Login = ({ login, isAuthenticated }) => {
     const onSubmit = e => {
         e.preventDefault();
         login(email, password);
+        Swal.fire({
+            icon: 'success',
+            text: 'Zostałeś pomyślnie zalogowany!',
+            })
     };
-
     if (isAuthenticated) {
         return <Navigate to='/home'/>
     }
-
     return (
         <Container sx={{
             justifyContent: 'center',
