@@ -81,7 +81,15 @@ const Navbar = ({ logout, isAuthenticated }) => {
                         component="div"
                         sx={{ flexGrow: 1, display: { xs: 'none', sm: 'block' } }}
                     >
-                        System Zapisów na Projekt Zespołowy
+                        <a 
+                            href='/home' 
+                            style={{ 
+                                textDecoration: 'none', 
+                                color: 'white' 
+                            }}
+                        >
+                            System Zapisów na Projekt Zespołowy
+                        </a>
                     </Typography>
                     {isAuthenticated ? auth() : guest()}
                 </Toolbar>

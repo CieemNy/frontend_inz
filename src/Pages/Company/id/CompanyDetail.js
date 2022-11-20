@@ -1,9 +1,11 @@
 import axios from 'axios';
 import React, {useEffect, useState} from 'react';
-import { useParams } from 'react-router-dom';
+import { useParams, Navigate } from 'react-router-dom';
 import { Box, Card, CardContent, Container, Typography } from '@mui/material';
+import { connect } from 'react-redux';
 
-const CompanyDetail = () => {
+
+const CompanyDetail = ({isAuthenticated}) => {
     const {companiesId} = useParams()
     const [company, setCompany] = useState([]);
     const [didFetch, setDidFetch] = useState(false);
@@ -22,6 +24,11 @@ const CompanyDetail = () => {
             getCompany();
         }
     }, [didFetch])
+
+    if (isAuthenticated===false) {
+        return <Navigate to='/'/>
+    }
+
     return (
         <Container  
             sx={{
@@ -113,4 +120,8 @@ const CompanyDetail = () => {
     )
 }
 
-export default CompanyDetail
+const mapStateToProps = state => ({
+    isAuthenticated: state.auth.isAuthenticated
+});
+
+export default connect(mapStateToProps, {})(CompanyDetail);

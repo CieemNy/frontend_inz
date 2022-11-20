@@ -1,8 +1,9 @@
 import React, {useState} from "react";
-import {Link, Navigate} from 'react-router-dom';
-import { Container, Box, Stack, Paper, TextField, Button, Typography, TextareaAutosize } from '@mui/material';
+import { Navigate} from 'react-router-dom';
+import { Container, Box, Stack, Paper, TextField, Button, Typography} from '@mui/material';
 import { styled } from '@mui/material/styles';
 import axios from "axios";
+import { connect } from "react-redux";
 
 const Item = styled(Paper)(({ theme }) => ({
     ...theme.typography.body2,
@@ -11,7 +12,7 @@ const Item = styled(Paper)(({ theme }) => ({
     color: 'black',
   }));
 
-const AddCompany = () => {
+const AddCompany = ({isAuthenticated}) => {
     const [companytCreated, setCompanyCreated] = useState(false)
     const [formData, setFormData] = useState({
         name: '',
@@ -42,6 +43,10 @@ const AddCompany = () => {
 
     if(companytCreated) {
       return <Navigate to='/company'/>
+    }
+
+    if (isAuthenticated===false) {
+        return <Navigate to='/'/>
     }
 
     return (
@@ -192,4 +197,8 @@ const AddCompany = () => {
     );
 }
 
-export default AddCompany;
+const mapStateToProps = state => ({
+    isAuthenticated: state.auth.isAuthenticated
+});
+
+export default connect(mapStateToProps, {})(AddCompany);

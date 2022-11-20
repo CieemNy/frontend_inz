@@ -1,9 +1,10 @@
 import axios from 'axios';
 import React, {useEffect, useState} from 'react';
-import { Link } from 'react-router-dom';
+import { connect } from 'react-redux';
+import { Link, Navigate } from 'react-router-dom';
 import { Box, Card, CardContent, CardActions, Button, Container, Typography } from '@mui/material';
 
-const Company = () => {
+const Company = ({isAuthenticated}) => {
     const [companies, setCompanies] = useState([]);
     const [didFetch, setDidFetch] = useState(false);
     const getCompanies = async () => {
@@ -21,6 +22,11 @@ const Company = () => {
             getCompanies();
         }
     }, [didFetch])
+
+    if (isAuthenticated===false) {
+        return <Navigate to='/'/>
+    }
+
     return (
         <Container sx={{
             justifyContent: 'center',
@@ -92,4 +98,8 @@ const Company = () => {
     )
 }
 
-export default Company;
+const mapStateToProps = state => ({
+    isAuthenticated: state.auth.isAuthenticated
+});
+
+export default connect(mapStateToProps, {})(Company);
