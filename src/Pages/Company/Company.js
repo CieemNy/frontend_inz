@@ -4,7 +4,8 @@ import { connect } from 'react-redux';
 import { Link, Navigate } from 'react-router-dom';
 import { Box, Card, CardContent, CardActions, Button, Container, Typography } from '@mui/material';
 
-const Company = ({isAuthenticated}) => {
+
+const Company = ({isAuthenticated, isVerified}) => {
     const [companies, setCompanies] = useState([]);
     const [didFetch, setDidFetch] = useState(false);
     const getCompanies = async () => {
@@ -15,7 +16,6 @@ const Company = ({isAuthenticated}) => {
         })
         setCompanies(res);
     }
-    console.log(companies)
     useEffect(() => {
         if(!didFetch){
             setDidFetch(true)
@@ -27,6 +27,34 @@ const Company = ({isAuthenticated}) => {
         return <Navigate to='/'/>
     }
 
+    const verified = () => {
+        return (
+            <Card 
+                sx={{
+                    display: 'flex', 
+                    padding: 2, 
+                    margin: 2,
+                    justifyContent: 'center',
+                }}
+            >
+                <Typography variant="h6">Jesteś Przedstawicielem Firmy? Kliknij przycisk obok, żeby dodać wizytówkę swojej firmy</Typography>
+                <Button 
+                    sx={{
+                        marginLeft: 5,
+                        backgroundColor: 'green',
+                        ':hover': {
+                            backgroundColor: 'green',
+                        }
+                    }}
+                    variant="contained"
+                    href='/company/add'
+                >
+                    Dodaj
+                </Button>
+            </Card>
+        );
+    };
+
     return (
         <Container sx={{
             justifyContent: 'center',
@@ -37,29 +65,9 @@ const Company = ({isAuthenticated}) => {
                 justifyContent: 'center',
                 alignItems: 'center',
             }}>
-                <Card 
-                    sx={{
-                        display: 'flex', 
-                        padding: 2, 
-                        margin: 2
-                    }}
-                >
-                    <Typography variant="h6">Jesteś Przedstawicielem Firmy? Kliknij przycisk obok, żeby dodać wizytówkę swojej firmy</Typography>
-                    <Button 
-                        sx={{
-                            marginLeft: 5,
-                            backgroundColor: 'green',
-                            ':hover': {
-                                backgroundColor: 'green',
-                            }
-                        }}
-                        variant="contained"
-                        href='/company/add'
-                    >
-                        Dodaj
-                    </Button>
-                </Card>
+                
             </Box>
+            {isVerified ? verified() : null}
             <Box>
                 {companies.map(companies => (
                     <Card 
@@ -99,7 +107,8 @@ const Company = ({isAuthenticated}) => {
 }
 
 const mapStateToProps = state => ({
-    isAuthenticated: state.auth.isAuthenticated
+    isAuthenticated: state.auth.isAuthenticated,
+    isVerified: state.auth.user.is_verified
 });
 
 export default connect(mapStateToProps, {})(Company);
