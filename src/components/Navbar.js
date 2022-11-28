@@ -41,6 +41,19 @@ const Navbar = ({ logout, isAuthenticated }) => {
     const auth = () => {
         return (
             <Fragment>
+                <Box sx={{ display: { xs: 'none', sm: 'block' }}}>
+                    <Typography>
+                        <a 
+                            href='/teams' 
+                            style={{ 
+                                textDecoration: 'none', 
+                                color: 'white' 
+                            }}
+                        >
+                            Zespoły
+                        </a>
+                    </Typography>
+                </Box>
                 <Box sx={{ display: { xs: 'none', sm: 'block' }, padding: 2 }}>
                     <Typography>
                         <a 
