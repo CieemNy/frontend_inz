@@ -54,7 +54,6 @@ const Company = ({isAuthenticated, isVerified}) => {
             </Card>
         );
     };
-
     return (
         <Container sx={{
             justifyContent: 'center',
