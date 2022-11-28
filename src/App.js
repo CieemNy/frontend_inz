@@ -9,6 +9,7 @@ import Layout from './Layout/Layout';
 import {Provider} from 'react-redux';
 import store from './store';
 import CompanyDetail from './Pages/Company/id/CompanyDetail';
+import Teams from './Pages/Teams/Teams';
 
 function App() {
   return (
@@ -22,7 +23,7 @@ function App() {
                     <Route path='/company' element={<Company/>}/>
                     <Route path='/company/add' element={<AddCompany/>}/>
                     <Route path='/company/:companiesId' element={<CompanyDetail/>}/>
-                    <Route path='/teams' element={<Company/>}/>
+                    <Route path='/teams' element={<Teams/>}/>
                 </Routes>
             </Layout>
         </Router>
