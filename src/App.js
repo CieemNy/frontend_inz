@@ -10,6 +10,7 @@ import {Provider} from 'react-redux';
 import store from './store';
 import CompanyDetail from './Pages/Company/id/CompanyDetail';
 import Teams from './Pages/Teams/Teams';
+import TeamsDetail from './Pages/Teams/id/TeamsDetail';
 
 function App() {
   return (
@@ -24,6 +25,7 @@ function App() {
                     <Route path='/company/add' element={<AddCompany/>}/>
                     <Route path='/company/:companiesId' element={<CompanyDetail/>}/>
                     <Route path='/teams' element={<Teams/>}/>
+                    <Route path='/teams/:teamId' element={<TeamsDetail/>}/>
                 </Routes>
             </Layout>
         </Router>
