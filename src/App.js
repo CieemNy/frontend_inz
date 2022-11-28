@@ -22,6 +22,7 @@ function App() {
                     <Route path='/company' element={<Company/>}/>
                     <Route path='/company/add' element={<AddCompany/>}/>
                     <Route path='/company/:companiesId' element={<CompanyDetail/>}/>
+                    <Route path='/teams' element={<Company/>}/>
                 </Routes>
             </Layout>
         </Router>
