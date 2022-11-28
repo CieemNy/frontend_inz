@@ -12,7 +12,7 @@ const Item = styled(Paper)(({ theme }) => ({
     color: 'black',
   }));
 
-const AddCompany = ({isAuthenticated}) => {
+const AddCompany = ({isAuthenticated, isLeader}) => {
     const [companytCreated, setCompanyCreated] = useState(false)
     const [formData, setFormData] = useState({
         name: '',
@@ -44,6 +44,10 @@ const AddCompany = ({isAuthenticated}) => {
 
     if (isAuthenticated===false) {
         return <Navigate to='/'/>
+    }
+
+    if (isLeader) {
+        return <Navigate to='/company'/>
     }
 
     return (
@@ -149,7 +153,8 @@ const AddCompany = ({isAuthenticated}) => {
 }
 
 const mapStateToProps = state => ({
-    isAuthenticated: state.auth.isAuthenticated
+    isAuthenticated: state.auth.isAuthenticated,
+    isLeader: state.auth.isAuthenticated
 });
 
 export default connect(mapStateToProps, {})(AddCompany);

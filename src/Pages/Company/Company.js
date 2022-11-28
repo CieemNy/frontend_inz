@@ -5,7 +5,7 @@ import { Link, Navigate } from 'react-router-dom';
 import { Box, Card, CardContent, CardActions, Button, Container, Typography } from '@mui/material';
 
 
-const Company = ({isAuthenticated, isVerified}) => {
+const Company = ({isAuthenticated, isVerified, isLeader}) => {
     const [companies, setCompanies] = useState([]);
     const [didFetch, setDidFetch] = useState(false);
     const getCompanies = async () => {
@@ -54,7 +54,6 @@ const Company = ({isAuthenticated, isVerified}) => {
             </Card>
         );
     };
-    console.log(companies)
     return (
         <Container sx={{
             justifyContent: 'center',
@@ -67,7 +66,7 @@ const Company = ({isAuthenticated, isVerified}) => {
             }}>
                 
             </Box>
-            {isVerified ? verified() : null}
+            {isVerified && !isLeader ? verified() : null}
             <Box>
                 {companies.map(companies => (
                     <Card 
@@ -109,7 +108,8 @@ const Company = ({isAuthenticated, isVerified}) => {
 
 const mapStateToProps = state => ({
     isAuthenticated: state.auth.isAuthenticated,
-    isVerified: state.auth.user.is_verified
+    isVerified: state.auth.user.is_verified,
+    isLeader: state.auth.user.is_leader
 });
 
 export default connect(mapStateToProps, {})(Company);
