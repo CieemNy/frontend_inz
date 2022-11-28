@@ -1,6 +1,6 @@
 import React, {useState} from "react";
 import { Navigate} from 'react-router-dom';
-import { Container, Box, Stack, Paper, TextField, Button, Typography} from '@mui/material';
+import { Container, Box, Stack, Paper, TextField, Button, Typography, MenuItem} from '@mui/material';
 import { styled } from '@mui/material/styles';
 import axios from "axios";
 import { connect } from "react-redux";
@@ -19,9 +19,6 @@ const AddCompany = ({isAuthenticated}) => {
         description: '',
         contact_number: '',
         contact_email: '',
-        main_front: '',
-        main_back: '',
-        available_places: '',
         places: '',
     })
     
@@ -123,70 +120,24 @@ const AddCompany = ({isAuthenticated}) => {
                           />
                       </Stack>
                       <Stack spacing={2}>
-                          <TextField
-                              id="main_front" 
-                              type="text"
-                              label="Główna technologia Frontendowa"
-                              name="main_front"
-                              value={formData.main_front}
-                              onChange={event => onChange(event)}
-                              variant="outlined"
-                              margin="dense"
-                              required
-                          />
-                      </Stack>
-                      <Stack spacing={2}>
-                          <TextField
-                              id="main_back" 
-                              type="text"
-                              label="Główna technologia Backendowa"
-                              name="main_back"
-                              value={formData.main_back}
-                              onChange={event => onChange(event)}
-                              variant="outlined"
-                              margin="dense"
-                              required
-                          />
-                      </Stack>
-                      <Stack spacing={2}>
-                          <TextField
-                              id="available_places" 
-                              type="number"
-                              label="Dostępne miejsca"
-                              name="available_places"
-                              value={formData.available_places}
-                              onChange={event => onChange(event)}
-                              variant="outlined"
-                              margin="dense"
-                              required
-                              InputProps={{
-                                inputProps: { 
-                                    type: 'number',
-                                    max: 5, 
-                                    min: 4 
-                                }
-                            }}
-                          />
-                      </Stack>
-                      <Stack spacing={2}>
-                          <TextField
+                        <TextField
                               id="places" 
-                              type="number"
                               label="Dostępne miejsca dla drużyn"
                               name="places"
-                              value={formData.aplaces}
+                              value={formData.places}
                               onChange={event => onChange(event)}
                               variant="outlined"
                               margin="dense"
                               required
-                              InputProps={{
-                                inputProps: { 
-                                    type: 'number',
-                                    max: 5, 
-                                    min: 4 
-                                }
-                            }}
-                          />
+                              select
+                          >
+                            <MenuItem key={4} value={4}>
+                                4
+                            </MenuItem>
+                            <MenuItem key={5} value={5}>
+                                5
+                            </MenuItem>
+                        </TextField>
                       </Stack>
                       <Stack spacing={4}>
                           <Button variant="contained" type="submit">DODAJ</Button>

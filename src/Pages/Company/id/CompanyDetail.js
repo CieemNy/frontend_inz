@@ -74,22 +74,9 @@ const CompanyDetail = ({isAuthenticated}) => {
                         <Typography
                             variant='h6'
                         >
-                            {company.user}
+                            {company.companyMan}
                         </Typography>
-                        <Typography mt={2}>Główna technologia Backendowa</Typography>
-                        <Typography
-                            variant='h6'
-                        >
-                            {company.main_back}
-                        </Typography>
-                        <Typography mt={2}>Główna technologia Frontendowa</Typography>
-                        <Typography
-                            variant='h6'
-                        >
-                            {company.main_front}
-                        </Typography>
-                        <Typography mt={2}>Kontakt z firmą</Typography>
-                        <Typography>E-mail</Typography>
+                        <Typography mt={2}>Mail Kontaktowy</Typography>
                         <Typography
                             variant='h6'
                         >
@@ -99,13 +86,7 @@ const CompanyDetail = ({isAuthenticated}) => {
                         <Typography
                             variant='h6'
                         >
-                            {company.contact_number} 
-                        </Typography>
-                        <Typography mt={2}>Dostępne miejsca</Typography>
-                        <Typography
-                            variant='h6'
-                        >
-                            {company.available_places} 
+                            {company.contact_number}
                         </Typography>
                         <Typography mt={2}>Limit miejsc</Typography>
                         <Typography

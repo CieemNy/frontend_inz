@@ -54,6 +54,7 @@ const Company = ({isAuthenticated, isVerified}) => {
             </Card>
         );
     };
+    console.log(companies)
     return (
         <Container sx={{
             justifyContent: 'center',
@@ -78,6 +79,7 @@ const Company = ({isAuthenticated, isVerified}) => {
                     >
                         <CardContent>
                             <Typography variant="h4">{companies.name}</Typography>
+                            <Typography>Przedstawiciel Firmy: {companies.companyMan}</Typography>
                             <Typography>{companies.description}</Typography>
                         </CardContent>
                         <CardActions
