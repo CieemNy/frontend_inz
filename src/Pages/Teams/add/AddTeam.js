@@ -12,13 +12,10 @@ const Item = styled(Paper)(({ theme }) => ({
     color: 'black',
   }));
 
-const AddCompany = ({isAuthenticated, isCompany, isLeader, isMember}) => {
-    const [companytCreated, setCompanyCreated] = useState(false)
+const AddCompany = ({isAuthenticated, isLeader, isMember, isCompany}) => {
+    const [teamCreated, setTeamCreated] = useState(false)
     const [formData, setFormData] = useState({
         name: '',
-        description: '',
-        contact_number: '',
-        contact_email: '',
         places: '',
     })
     
@@ -27,7 +24,7 @@ const AddCompany = ({isAuthenticated, isCompany, isLeader, isMember}) => {
     const onSubmit = async (e) => {
         e.preventDefault();
         try {
-          const res = await axios.post('http://localhost:8000/accounts/company/add', formData, {
+          const res = await axios.post('http://localhost:8000/accounts/teams/create', formData, {
             headers: {
               'Authorization': `JWT ${localStorage.getItem('access')}`
           }
@@ -35,19 +32,19 @@ const AddCompany = ({isAuthenticated, isCompany, isLeader, isMember}) => {
         } catch (e) {
           alert(e)
         }
-        setCompanyCreated(true);
+        setTeamCreated(true);
     };
 
-    if(companytCreated) {
-      return <Navigate to='/company'/>
+    if(teamCreated) {
+      return <Navigate to='/teams'/>
     }
 
     if (isAuthenticated===false) {
         return <Navigate to='/'/>
     }
 
-    if (isCompany || isLeader || isMember) {
-        return <Navigate to='/company'/>
+    if (isLeader || isMember || isCompany) {
+        return <Navigate to='/teams'/>
     }
 
     return (
@@ -58,7 +55,7 @@ const AddCompany = ({isAuthenticated, isCompany, isLeader, isMember}) => {
               <Box>
                   <Stack spacing={2}>
                       <Item>
-                          <Typography>DODAJ FIRME</Typography>
+                          <Typography>DODAJ ZESPÓŁ</Typography>
                       </Item>
                   </Stack>
               </Box>
@@ -82,51 +79,9 @@ const AddCompany = ({isAuthenticated, isCompany, isLeader, isMember}) => {
                           />
                       </Stack>
                       <Stack spacing={2}>
-                          <TextField
-                              id="description" 
-                              type="text"
-                              label="Opis"
-                              name="description"
-                              value={formData.description}
-                              onChange={event => onChange(event)}
-                              variant="outlined"
-                              margin="dense"
-                              multiline
-                              rows={2}
-                              maxRows={4}
-                              required
-                          />
-                      </Stack>
-                      <Stack spacing={2}>
-                          <TextField
-                              id="contact_number" 
-                              type="text"
-                              label="Numer Kontaktowy"
-                              name="contact_number"
-                              value={formData.contact_number}
-                              onChange={event => onChange(event)}
-                              variant="outlined"
-                              margin="dense"
-                              required
-                          />
-                      </Stack>
-                      <Stack spacing={2}>
-                          <TextField
-                              id="contact_email" 
-                              type="text"
-                              label="E-mail Kontaktowy"
-                              name="contact_email"
-                              value={formData.contact_email}
-                              onChange={event => onChange(event)}
-                              variant="outlined"
-                              margin="dense"
-                              required
-                          />
-                      </Stack>
-                      <Stack spacing={2}>
                         <TextField
                               id="places" 
-                              label="Dostępne miejsca dla drużyn"
+                              label="Dostępne miejsca w drużynie"
                               name="places"
                               value={formData.places}
                               onChange={event => onChange(event)}
@@ -141,6 +96,9 @@ const AddCompany = ({isAuthenticated, isCompany, isLeader, isMember}) => {
                             <MenuItem key={5} value={5}>
                                 5
                             </MenuItem>
+                            <MenuItem key={6} value={6}>
+                                6
+                            </MenuItem>
                         </TextField>
                       </Stack>
                       <Stack spacing={4}>
@@ -154,9 +112,9 @@ const AddCompany = ({isAuthenticated, isCompany, isLeader, isMember}) => {
 
 const mapStateToProps = state => ({
     isAuthenticated: state.auth.isAuthenticated,
-    isCompany: state.auth.user.is_company,
     isLeader: state.auth.user.is_leader,
-    isMember: state.auth.user.is_member
+    isMember: state.auth.user.is_member,
+    isCompany: state.auth.user.is_company
 });
 
 export default connect(mapStateToProps, {})(AddCompany);
