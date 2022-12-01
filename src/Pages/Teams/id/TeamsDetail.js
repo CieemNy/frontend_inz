@@ -133,8 +133,7 @@ const CompanyDetail = ({isAuthenticated, isLeader, isMember, isCompany}) => {
                                 {members.member}
                             </Typography>
                         ))}
-                        {/* {wip display button using roles} */}
-                        {!isLeader ? showJoinButton() : null}
+                        {(isLeader===false && isMember===false && isCompany===false) ? showJoinButton() : null}
                     </CardContent>
                 </Card>
             </Box>
@@ -144,9 +143,9 @@ const CompanyDetail = ({isAuthenticated, isLeader, isMember, isCompany}) => {
 
 const mapStateToProps = state => ({
     isAuthenticated: state.auth.isAuthenticated,
-    isLeader: state.auth.user.isLeader,
-    isMember: state.auth.user.isMember,
-    isCompany: state.auth.user.isCompany,
+    isLeader: state.auth.user.is_leader,
+    isMember: state.auth.user.is_member,
+    isCompany: state.auth.user.is_company,
 });
 
 export default connect(mapStateToProps, {})(CompanyDetail);
