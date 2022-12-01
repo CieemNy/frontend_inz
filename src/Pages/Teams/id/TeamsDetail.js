@@ -5,12 +5,11 @@ import { Box, Card, CardContent, Container, Typography, Divider, Button } from '
 import { connect } from 'react-redux';
 import Swal from 'sweetalert2';
 
-const CompanyDetail = ({isAuthenticated}) => {
+const CompanyDetail = ({isAuthenticated, isLeader, isMember, isCompany}) => {
     const {teamId} = useParams()
     const [team, setTeam] = useState([]);
     const [members, setMembers] = useState([]);
     const [didFetch, setDidFetch] = useState(false);
-    const [join, setJoin] = useState(false);
 
     const getTeam = async () => {
         const {data: res} = await axios.get(`http://localhost:8000/accounts/teams/${teamId}`,{
@@ -31,7 +30,7 @@ const CompanyDetail = ({isAuthenticated}) => {
     const joinTeam = async (e) => {
         e.preventDefault();
         try {
-          const res = await axios.post(`http://localhost:8000/accounts/teams/${teamId}/join`, {
+          const res = await axios.post(`http://localhost:8000/accounts/teams/${teamId}/join`, teamId, {
             headers: {
               'Authorization': `JWT ${localStorage.getItem('access')}`
           },
@@ -43,10 +42,13 @@ const CompanyDetail = ({isAuthenticated}) => {
         Swal.fire({
             icon: 'success',
             text: 'Dołączyłeś do zespołu!',
+        }).then(okay => {
+            if(okay){
+                window.location.reload();
+            }
         })
-        setJoin(true);
     };
-
+    
     useEffect(() => {
         if(!didFetch){
             setDidFetch(true)
@@ -54,6 +56,7 @@ const CompanyDetail = ({isAuthenticated}) => {
             getMembers();
         }
     }, [didFetch])
+
 
     const showJoinButton = () => {
         return (
@@ -71,7 +74,7 @@ const CompanyDetail = ({isAuthenticated}) => {
     }
 
     return (
-        <Container  
+        <Container
             sx={{
                 justifyContent: 'center',
                 marginTop: 15
@@ -130,7 +133,8 @@ const CompanyDetail = ({isAuthenticated}) => {
                                 {members.member}
                             </Typography>
                         ))}
-                        {team.occupied_places !== team.places ? showJoinButton() : null}
+                        {/* {wip display button using roles} */}
+                        {!isLeader ? showJoinButton() : null}
                     </CardContent>
                 </Card>
             </Box>
@@ -139,7 +143,10 @@ const CompanyDetail = ({isAuthenticated}) => {
 }
 
 const mapStateToProps = state => ({
-    isAuthenticated: state.auth.isAuthenticated
+    isAuthenticated: state.auth.isAuthenticated,
+    isLeader: state.auth.user.isLeader,
+    isMember: state.auth.user.isMember,
+    isCompany: state.auth.user.isCompany,
 });
 
 export default connect(mapStateToProps, {})(CompanyDetail);
