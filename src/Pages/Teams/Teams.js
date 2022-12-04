@@ -4,30 +4,28 @@ import { connect } from 'react-redux';
 import { Link, Navigate } from 'react-router-dom';
 import { Box, Card, CardContent, CardActions, Button, Container, Typography } from '@mui/material';
 
-
-const Company = ({isAuthenticated, isVerified, isLeader}) => {
-    const [companies, setCompanies] = useState([]);
+const Teams = ({isAuthenticated, isLeader, isMember}) => {
+    const [teams, setTeams] = useState([]);
     const [didFetch, setDidFetch] = useState(false);
-    const getCompanies = async () => {
-        const {data: res} = await axios.get(`http://localhost:8000/accounts/company`,{
+    const getTeams = async () => {
+        const {data: res} = await axios.get(`http://localhost:8000/accounts/teams`,{
             headers: {
                 'Authorization': `JWT ${localStorage.getItem('access')}`
             }
         })
-        setCompanies(res);
+        setTeams(res);
     }
     useEffect(() => {
         if(!didFetch){
             setDidFetch(true)
-            getCompanies();
+            getTeams();
         }
     }, [didFetch])
 
     if (isAuthenticated===false) {
         return <Navigate to='/'/>
     }
-
-    const verified = () => {
+    const memberOrLeader = () => {
         return (
             <Card 
                 sx={{
@@ -37,7 +35,7 @@ const Company = ({isAuthenticated, isVerified, isLeader}) => {
                     justifyContent: 'center',
                 }}
             >
-                <Typography variant="h6">Jesteś Przedstawicielem Firmy? Kliknij przycisk obok, żeby dodać wizytówkę swojej firmy</Typography>
+                <Typography variant="h6">Chcesz założyć swój zespół? Kliknij przycisk obok</Typography>
                 <Button 
                     sx={{
                         marginLeft: 5,
@@ -47,7 +45,7 @@ const Company = ({isAuthenticated, isVerified, isLeader}) => {
                         }
                     }}
                     variant="contained"
-                    href='/company/add'
+                    href='/teams/add'
                 >
                     Dodaj
                 </Button>
@@ -64,22 +62,25 @@ const Company = ({isAuthenticated, isVerified, isLeader}) => {
                 justifyContent: 'center',
                 alignItems: 'center',
             }}>
-                
+            {isLeader===false && isMember===false ? memberOrLeader() : null}
             </Box>
-            {isVerified && !isLeader ? verified() : null}
             <Box>
-                {companies.map(companies => (
+                {teams.map(teams => (
                     <Card 
-                        key={companies.id} 
+                        key={teams.id} 
                         sx={{
                             padding: 2, 
                             margin: 2,
                             }}
                     >
                         <CardContent>
-                            <Typography variant="h4">{companies.name}</Typography>
-                            <Typography>Przedstawiciel Firmy: {companies.companyMan}</Typography>
-                            <Typography>{companies.description}</Typography>
+                            <Typography variant="h4">{teams.name}</Typography>
+                        </CardContent>
+                        <CardContent>
+                            <Typography>Lider: {teams.leader}</Typography>
+                            <Typography>Zajęte miejsca: {teams.occupied_places}</Typography>
+                            <Typography>Miejsca w drużynie: {teams.places}</Typography>
+                            <Typography>Data założenia: {teams.creation_date}</Typography>
                         </CardContent>
                         <CardActions
                                 sx={{
@@ -88,7 +89,7 @@ const Company = ({isAuthenticated, isVerified, isLeader}) => {
                                 }}
                             >
                                 <Link
-                                    to={`/company/${companies.id}`}
+                                    to={`/teams/${teams.id}`}
                                     style={{ 
                                         textDecoration: 'none', 
                                         color: 'white' 
@@ -103,13 +104,13 @@ const Company = ({isAuthenticated, isVerified, isLeader}) => {
                 ))}
             </Box>
         </Container>
-    )
+    );
 }
 
 const mapStateToProps = state => ({
     isAuthenticated: state.auth.isAuthenticated,
-    isVerified: state.auth.user.is_verified,
-    isLeader: state.auth.user.is_leader
+    isLeader: state.auth.user.is_leader,
+    isMember: state.auth.user.is_member
 });
 
-export default connect(mapStateToProps, {})(Company);
+export default connect(mapStateToProps, {})(Teams);

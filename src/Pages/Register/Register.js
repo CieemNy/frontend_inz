@@ -60,7 +60,6 @@ const Register = ({ setAlert, register, isAuthenticated }) => {
         }
         if (password === re_password){
             register(email, name, surname, password, re_password);
-            
         }
         Swal.fire({
             icon: 'success',
