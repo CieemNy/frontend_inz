@@ -62,7 +62,7 @@ const Teams = ({isAuthenticated, isLeader, isMember}) => {
                 justifyContent: 'center',
                 alignItems: 'center',
             }}>
-            {!isLeader || !isMember ? memberOrLeader() : null}
+            {isLeader===false && isMember===false ? memberOrLeader() : null}
             </Box>
             <Box>
                 {teams.map(teams => (

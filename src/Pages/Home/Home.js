@@ -7,6 +7,7 @@ import { Link, Navigate } from 'react-router-dom';
 const Home = ({isAuthenticated}) => {
     const [userData, setUserData] = useState([]);
     const [userCompany, setUserCompany] = useState([]);
+    const [userTeam, setUserTeam] = useState([]);
     const [didFetch, setDidFetch] = useState(false);
     useEffect(()=>{
         const getUser = async () => {
@@ -27,10 +28,19 @@ const Home = ({isAuthenticated}) => {
         })
         setUserCompany(res);
     }
+    const getUserTeam = async () => {
+        const {data: res} = await axios.get(`http://localhost:8000/accounts/user/team`,{
+            headers: {
+                'Authorization': `JWT ${localStorage.getItem('access')}`
+            }
+        })
+        setUserTeam(res);
+    }
     useEffect(() => {
         if(!didFetch){
-            setDidFetch(true)
+            setDidFetch(true);
             getUserCompany();
+            getUserTeam();
         }
     }, [didFetch])
 
@@ -114,6 +124,88 @@ const Home = ({isAuthenticated}) => {
             </Card>
         );
     };
+    const teamWelcome = () => {
+        return (
+            <Card 
+                sx={{
+                    display: 'flex', 
+                    padding: 2, 
+                    margin: 2,
+                    justifyContent: 'center',
+                    minWidth: 300,
+                    minHeight: 300
+                }}
+            >
+                <CardContent
+                    sx={{
+                        justifyContent: 'center',
+                        textAlign: 'center'
+                    }}
+                >
+                    <Typography variant="h6" gutterBottom>Witaj {userData.name} {userData.surname}!</Typography>
+                    <Typography>Twój Zespół</Typography>
+                    {userTeam.map(userTeam => (
+                        <>
+                            <Typography>{userTeam.name}</Typography>
+                            <Typography mt={2}>Szczegóły twojego zespołu</Typography>
+                            <CardActions
+                                sx={{
+                                    display: 'flex',
+                                    justifyContent: 'center',
+                                }}
+                            >
+                                <Link
+                                    to={`/teams/${userTeam.id}`}
+                                    style={{ 
+                                        textDecoration: 'none', 
+                                        color: 'white' 
+                                    }}
+                                >
+                                    <Button variant="contained" >
+                                        Szczegóły
+                                    </Button>
+                                    
+                                </Link>
+                            </CardActions>
+                            {userData.is_leader===true ?
+                            <>
+                                <Typography mt={2}>Określ wybory</Typography>
+                                <CardActions
+                                    sx={{
+                                        display: 'flex',
+                                        justifyContent: 'center',
+                                    }}
+                                >
+                                    <Link
+                                        to={`/team/${userTeam.id}/choices/add`}
+                                        style={{ 
+                                            textDecoration: 'none', 
+                                            color: 'white' 
+                                        }}
+                                    >
+                                        <Button
+                                            sx={{
+                                                backgroundColor: 'green',
+                                                ':hover': {
+                                                    backgroundColor: 'green',
+                                                }
+                                            }}
+                                            variant="contained"
+                                        >
+                                            Dodaj
+                                        </Button>
+                                    </Link>
+                                </CardActions>
+                            </>
+                            :
+                            null
+                            }
+                        </>
+                    ))}
+                </CardContent>
+            </Card>
+        );
+    };
 
     return (
         <Container sx={{
@@ -126,6 +218,8 @@ const Home = ({isAuthenticated}) => {
                 alignItems: 'center',
             }}>
                 {userData.is_company===true ? companyWelcome() : null}
+                {userData.is_leader===true || userData.is_member===true ? teamWelcome() : null}
+                
             </Box>
         </Container>
     );
