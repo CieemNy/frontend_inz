@@ -219,7 +219,18 @@ const Home = ({isAuthenticated}) => {
             }}>
                 {userData.is_company===true ? companyWelcome() : null}
                 {userData.is_leader===true || userData.is_member===true ? teamWelcome() : null}
-                
+                {userData.is_leader===false && userData.is_member===false && userData.is_leader===false ?
+                    <CardContent
+                    sx={{
+                        justifyContent: 'center',
+                        textAlign: 'center'
+                    }}
+                >
+                    <Typography variant="h6" gutterBottom>Witaj {userData.name} {userData.surname}!</Typography>
+                </CardContent>
+                :
+                null
+                }
             </Box>
         </Container>
     );
