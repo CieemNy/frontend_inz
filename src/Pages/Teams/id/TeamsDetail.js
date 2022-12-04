@@ -36,7 +36,10 @@ const CompanyDetail = ({isAuthenticated, isLeader, isMember, isCompany}) => {
           },
         })
         } catch (e) {
-          alert(e)
+            Swal.fire({
+                icon: 'error',
+                text: 'Brak dostępnych miejsc w zespole',
+            })
           return false;
         }
         Swal.fire({
@@ -133,7 +136,7 @@ const CompanyDetail = ({isAuthenticated, isLeader, isMember, isCompany}) => {
                                 {members.member}
                             </Typography>
                         ))}
-                        {(isLeader===false && isMember===false && isCompany===false) ? showJoinButton() : null}
+                        {(isLeader===false && isMember===false && isCompany===false && team.occupied_places<=team.places) ? showJoinButton() : null}
                     </CardContent>
                 </Card>
             </Box>
