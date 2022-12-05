@@ -1,5 +1,5 @@
 import React, {useState} from "react";
-import { Navigate} from 'react-router-dom';
+import { useParams, Navigate} from 'react-router-dom';
 import { Container, Box, Stack, Paper, TextField, Button, Typography} from '@mui/material';
 import { styled } from '@mui/material/styles';
 import axios from "axios";
@@ -14,6 +14,30 @@ const Item = styled(Paper)(({ theme }) => ({
 
 
 const AddProject = () => {
+    const {companyId} = useParams()
+    const [projectCreated, setProjectCreated] = useState(false)
+    const [formData, setFormData] = useState({
+        title: '',
+        description: '',
+        front: '',
+        back: '',
+    })
+    const onChange = e => setFormData({ ...formData, [e.target.name]: e.target.value });
+
+    const onSubmit = async (e) => {
+        e.preventDefault();
+        try {
+          const res = await axios.post(`http://localhost:8000/accounts/company/${companyId}/projects/add`, formData, {
+            headers: {
+              'Authorization': `JWT ${localStorage.getItem('access')}`
+          }
+          })
+        } catch (e) {
+          alert(e)
+        }
+        setProjectCreated(true);
+    };
+
     return (
         <Container sx={{
             justifyContent: 'center',
@@ -26,7 +50,7 @@ const AddProject = () => {
                     </Item>
                 </Stack>
             </Box>
-            {/* <form onSubmit={e => onSubmit(e)}> */}
+            <form onSubmit={e => onSubmit(e)}>
                 <Box sx={{
                     padding: 2,
                     alignItems: 'center',
@@ -39,9 +63,9 @@ const AddProject = () => {
                             label="Tytuł projektu"
                             variant="outlined"
                             margin="dense"
-                            //   value={formData.name}
-                            //   onChange={event => onChange(event)}
-                            name="titlw"
+                            value={formData.title}
+                            onChange={event => onChange(event)}
+                            name="title"
                             required
                         />
                     </Stack>
@@ -51,8 +75,8 @@ const AddProject = () => {
                             type="text"
                             label="Opis"
                             name="description"
-                            //   value={formData.description}
-                            //   onChange={event => onChange(event)}
+                            value={formData.description}
+                            onChange={event => onChange(event)}
                             variant="outlined"
                             margin="dense"
                             multiline
@@ -67,8 +91,8 @@ const AddProject = () => {
                             type="text"
                             label="Technologia Frontendowa"
                             name="front"
-                            //   value={formData.contact_number}
-                            //   onChange={event => onChange(event)}
+                            value={formData.front}
+                            onChange={event => onChange(event)}
                             variant="outlined"
                             margin="dense"
                             required
@@ -80,8 +104,8 @@ const AddProject = () => {
                             type="text"
                             label="Technologia Backendowa"
                             name="back"
-                            //   value={formData.contact_email}
-                            //   onChange={event => onChange(event)}
+                            value={formData.back}
+                            onChange={event => onChange(event)}
                             variant="outlined"
                             margin="dense"
                             required
@@ -91,7 +115,7 @@ const AddProject = () => {
                         <Button variant="contained" type="submit">DODAJ</Button>
                     </Stack>    
                 </Box>
-            {/* </form> */}
+            </form>
         </Container>
     )
 }
