@@ -219,7 +219,7 @@ const Home = ({isAuthenticated}) => {
             }}>
                 {userData.is_company===true ? companyWelcome() : null}
                 {userData.is_leader===true || userData.is_member===true ? teamWelcome() : null}
-                {userData.is_leader===false && userData.is_member===false && userData.is_leader===false ?
+                {userData.is_leader===false && userData.is_member===false && userData.is_company===false ?
                     <CardContent
                     sx={{
                         justifyContent: 'center',
