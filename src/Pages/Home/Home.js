@@ -100,6 +100,7 @@ const Home = ({isAuthenticated}) => {
                             >
                                 <Link
                                     to={`/company/${userCompany.id}/project/add`}
+                                    state={{userCompany: userCompany.user}}
                                     style={{ 
                                         textDecoration: 'none', 
                                         color: 'white' 

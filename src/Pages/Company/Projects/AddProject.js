@@ -1,5 +1,5 @@
-import React, {useState} from "react";
-import { useParams, Navigate} from 'react-router-dom';
+import React, {useState, useEffect} from "react";
+import { useParams, Navigate, useLocation} from 'react-router-dom';
 import { Container, Box, Stack, Paper, TextField, Button, Typography} from '@mui/material';
 import { styled } from '@mui/material/styles';
 import axios from "axios";
@@ -14,7 +14,7 @@ const Item = styled(Paper)(({ theme }) => ({
   }));
 
 
-const AddProject = ({isAuthenticated}) => {
+const AddProject = ({isAuthenticated, userID, props}) => {
     const {companyId} = useParams()
     const [projectCreated, setProjectCreated] = useState(false)
     const [formData, setFormData] = useState({
@@ -23,8 +23,11 @@ const AddProject = ({isAuthenticated}) => {
         front: '',
         back: '',
     })
-    const onChange = e => setFormData({ ...formData, [e.target.name]: e.target.value });
 
+    const location = useLocation();
+    const { state } = location;
+
+    const onChange = e => setFormData({ ...formData, [e.target.name]: e.target.value });
     const onSubmit = async (e) => {
         e.preventDefault();
         try {
@@ -50,7 +53,12 @@ const AddProject = ({isAuthenticated}) => {
         })
         setProjectCreated(true);
     };
+
     if (isAuthenticated===false) {
+        return <Navigate to='/'/>
+    }
+
+    if (state.userCompany !== userID) {
         return <Navigate to='/'/>
     }
 
