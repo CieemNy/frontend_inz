@@ -14,7 +14,7 @@ const Item = styled(Paper)(({ theme }) => ({
   }));
 
 
-const AddProject = () => {
+const AddProject = ({isAuthenticated}) => {
     const {companyId} = useParams()
     const [projectCreated, setProjectCreated] = useState(false)
     const [formData, setFormData] = useState({
@@ -50,6 +50,9 @@ const AddProject = () => {
         })
         setProjectCreated(true);
     };
+    if (isAuthenticated===false) {
+        return <Navigate to='/'/>
+    }
 
     return (
         <Container sx={{
@@ -135,9 +138,7 @@ const AddProject = () => {
 
 const mapStateToProps = state => ({
     isAuthenticated: state.auth.isAuthenticated,
-    isCompany: state.auth.user.is_company,
-    isLeader: state.auth.user.is_leader,
-    isMember: state.auth.user.is_member
+    userID: state.auth.user.id
 });
 
 export default connect(mapStateToProps, {})(AddProject);
