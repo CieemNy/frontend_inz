@@ -4,6 +4,7 @@ import { Container, Box, Stack, Paper, TextField, Button, Typography} from '@mui
 import { styled } from '@mui/material/styles';
 import axios from "axios";
 import { connect } from "react-redux";
+import Swal from 'sweetalert2';
 
 const Item = styled(Paper)(({ theme }) => ({
     ...theme.typography.body2,
@@ -33,8 +34,20 @@ const AddProject = () => {
           }
           })
         } catch (e) {
-          alert(e)
+            Swal.fire({
+                icon: 'error',
+                text: 'Wystąpił błąd przy dodawaniu projektu',
+            })
+          return false;
         }
+        Swal.fire({
+            icon: 'success',
+            text: 'Dodałeś projekt do swojej firmy!',
+        }).then(okay => {
+            if(okay){
+                window.location.reload();
+            }
+        })
         setProjectCreated(true);
     };
 
