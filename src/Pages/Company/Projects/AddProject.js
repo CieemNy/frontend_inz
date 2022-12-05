@@ -16,7 +16,6 @@ const Item = styled(Paper)(({ theme }) => ({
 
 const AddProject = ({isAuthenticated, userID, props}) => {
     const {companyId} = useParams()
-    const [projectCreated, setProjectCreated] = useState(false)
     const [formData, setFormData] = useState({
         title: '',
         description: '',
@@ -51,13 +50,13 @@ const AddProject = ({isAuthenticated, userID, props}) => {
                 window.location.reload();
             }
         })
-        setProjectCreated(true);
     };
 
     if (isAuthenticated===false) {
         return <Navigate to='/'/>
     }
 
+    //TODO: zobaczyć, zeby przekierowywało
     if (state.userCompany !== userID) {
         return <Navigate to='/'/>
     }

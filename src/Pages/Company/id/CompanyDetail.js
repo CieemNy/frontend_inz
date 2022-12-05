@@ -1,13 +1,14 @@
 import axios from 'axios';
 import React, {useEffect, useState} from 'react';
 import { useParams, Navigate } from 'react-router-dom';
-import { Box, Card, CardContent, Container, Typography } from '@mui/material';
+import { Box, Card, CardContent, CardActions, Container, Typography } from '@mui/material';
 import { connect } from 'react-redux';
 
 
 const CompanyDetail = ({isAuthenticated}) => {
     const {companiesId} = useParams()
     const [company, setCompany] = useState([]);
+    const [projects, setProjects] = useState([]);
     const [didFetch, setDidFetch] = useState(false);
     const getCompany = async () => {
         const {data: res} = await axios.get(`http://localhost:8000/accounts/company/${companiesId}`,{
@@ -17,11 +18,20 @@ const CompanyDetail = ({isAuthenticated}) => {
         })
         setCompany(res);
     }
+    const getProjects = async () => {
+        const {data: res} = await axios.get(`http://localhost:8000/accounts/company/${companiesId}/projects/`,{
+            headers: {
+                'Authorization': `JWT ${localStorage.getItem('access')}`
+            }
+        })
+        setProjects(res);
+    }
 
     useEffect(() => {
         if(!didFetch){
             setDidFetch(true)
             getCompany();
+            getProjects();
         }
     }, [didFetch])
 
@@ -96,6 +106,35 @@ const CompanyDetail = ({isAuthenticated}) => {
                         </Typography>
                     </CardContent>
                 </Card>
+            </Box>
+            <Card 
+                sx={{
+                    display: 'flex', 
+                    padding: 2, 
+                    margin: 2,
+                    justifyContent: 'center',
+                }}
+            >
+                <Typography variant="h6">PROJEKTY OFEROWANE PRZEZ FIRMĘ DO ZREALIZOWANIA</Typography>
+            </Card>
+            <Box>
+                {projects.map(projects => (
+                    <Card 
+                        key={projects.id} 
+                        sx={{
+                            padding: 2, 
+                            margin: 2,
+                            }}
+                    >
+                        <CardContent>
+                            <Typography variant="h6">{projects.title}</Typography>
+                            <Typography mt={2}>Opis Projektu:</Typography>
+                            <Typography> {projects.description}</Typography>
+                            <Typography mt={2}>Preferowana technologia Frontendowa: {projects.front}</Typography>
+                            <Typography mt={1}>Preferowana technologia Backendowa: {projects.back}</Typography>
+                        </CardContent>
+                    </Card>
+                ))}
             </Box>
         </Container>
     )
