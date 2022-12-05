@@ -13,7 +13,7 @@ const Item = styled(Paper)(({ theme }) => ({
   }));
 
 const AddCompany = ({isAuthenticated, isCompany, isLeader, isMember}) => {
-    const [companytCreated, setCompanyCreated] = useState(false)
+    const [companyCreated, setCompanyCreated] = useState(false)
     const [formData, setFormData] = useState({
         name: '',
         description: '',
@@ -38,7 +38,7 @@ const AddCompany = ({isAuthenticated, isCompany, isLeader, isMember}) => {
         setCompanyCreated(true);
     };
 
-    if(companytCreated) {
+    if(companyCreated) {
       return <Navigate to='/company'/>
     }
 
