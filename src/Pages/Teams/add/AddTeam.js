@@ -16,6 +16,7 @@ const AddCompany = ({isAuthenticated, isLeader, isMember, isCompany}) => {
     const [teamCreated, setTeamCreated] = useState(false)
     const [formData, setFormData] = useState({
         name: '',
+        access_code: '',
         places: '',
     })
     
@@ -79,6 +80,19 @@ const AddCompany = ({isAuthenticated, isLeader, isMember, isCompany}) => {
                               value={formData.name}
                               onChange={event => onChange(event)}
                               name="name"
+                              required
+                          />
+                      </Stack>
+                      <Stack spacing={2}>
+                          <TextField 
+                              id="access_code"
+                              type="text"
+                              label="Kod dostępu"
+                              variant="outlined"
+                              margin="dense"
+                              value={formData.access_code}
+                              onChange={event => onChange(event)}
+                              name="access_code"
                               required
                           />
                       </Stack>

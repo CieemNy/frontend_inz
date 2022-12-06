@@ -1,7 +1,7 @@
 import axios from 'axios';
 import React, {useEffect, useState} from 'react';
 import { useParams, Navigate } from 'react-router-dom';
-import { Box, Card, CardContent, Container, Typography, Divider, Button } from '@mui/material';
+import { Box, Card, CardContent, Container, Typography, Divider, Button, Stack, TextField } from '@mui/material';
 import { connect } from 'react-redux';
 import Swal from 'sweetalert2';
 
@@ -9,7 +9,12 @@ const CompanyDetail = ({isAuthenticated, isLeader, isMember, isCompany}) => {
     const {teamId} = useParams()
     const [team, setTeam] = useState([]);
     const [members, setMembers] = useState([]);
+    const [formData, setFormData] = useState({
+        accessCode: ''
+    })
     const [didFetch, setDidFetch] = useState(false);
+
+    const onChange = e => setFormData({ formData, [e.target.name]: e.target.value });
 
     const getTeam = async () => {
         const {data: res} = await axios.get(`http://localhost:8000/accounts/teams/${teamId}`,{
@@ -30,7 +35,7 @@ const CompanyDetail = ({isAuthenticated, isLeader, isMember, isCompany}) => {
     const joinTeam = async (e) => {
         e.preventDefault();
         try {
-          const res = await axios.post(`http://localhost:8000/accounts/teams/${teamId}/join`, teamId, {
+          const res = await axios.post(`http://localhost:8000/accounts/teams/${teamId}/join`, formData, {
             headers: {
               'Authorization': `JWT ${localStorage.getItem('access')}`
           },
@@ -38,7 +43,7 @@ const CompanyDetail = ({isAuthenticated, isLeader, isMember, isCompany}) => {
         } catch (e) {
             Swal.fire({
                 icon: 'error',
-                text: 'Brak dostępnych miejsc w zespole',
+                text: 'Wystąpił błąd',
             })
           return false;
         }
@@ -66,7 +71,22 @@ const CompanyDetail = ({isAuthenticated, isLeader, isMember, isCompany}) => {
             <>
                 <Divider sx={{marginTop: 2}}/>
                 <form onSubmit={e => joinTeam(e)}>
-                    <Button sx={{marginTop: 2}} variant="contained" type="submit">Dołącz</Button>
+                    <Stack sx={{marginTop: 2}} spacing={2}>
+                          <TextField 
+                              id="access_code"
+                              type="text"
+                              label="Kod dostępu"
+                              variant="outlined"
+                              margin="dense"
+                              value={formData.accessCode}
+                              onChange={event => onChange(event)}
+                              name="access_code"
+                              required
+                          />
+                      </Stack>
+                    <Stack spacing={4}>
+                        <Button sx={{marginTop: 2}} variant="contained" type="submit">Dołącz</Button>
+                    </Stack>
                 </form>
             </>
         );
