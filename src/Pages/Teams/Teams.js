@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import { Link, Navigate } from 'react-router-dom';
 import { Box, Card, CardContent, CardActions, Button, Container, Typography } from '@mui/material';
 
-const Teams = ({isAuthenticated, isLeader, isMember}) => {
+const Teams = ({isAuthenticated, isLeader, isMember, isCompany}) => {
     const [teams, setTeams] = useState([]);
     const [didFetch, setDidFetch] = useState(false);
     const getTeams = async () => {
@@ -62,7 +62,7 @@ const Teams = ({isAuthenticated, isLeader, isMember}) => {
                 justifyContent: 'center',
                 alignItems: 'center',
             }}>
-            {isLeader===false && isMember===false ? memberOrLeader() : null}
+            {isLeader===false && isMember===false && isCompany===false ? memberOrLeader() : null}
             </Box>
             <Box>
                 {teams.map(teams => (
@@ -110,7 +110,8 @@ const Teams = ({isAuthenticated, isLeader, isMember}) => {
 const mapStateToProps = state => ({
     isAuthenticated: state.auth.isAuthenticated,
     isLeader: state.auth.user.is_leader,
-    isMember: state.auth.user.is_member
+    isMember: state.auth.user.is_member,
+    isCompany: state.auth.user.is_company
 });
 
 export default connect(mapStateToProps, {})(Teams);
