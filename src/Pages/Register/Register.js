@@ -66,7 +66,7 @@ const Register = ({ setAlert, register, isAuthenticated }) => {
             icon: 'success',
             text: 'Zostałeś pomyślnie zarejestrowany!',
             })
-        // setAccountCreated(true);
+        setAccountCreated(true);
     };
 
     if (isAuthenticated) {

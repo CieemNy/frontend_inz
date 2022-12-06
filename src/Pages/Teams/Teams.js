@@ -25,6 +25,9 @@ const Teams = ({isAuthenticated, isLeader, isMember, isCompany}) => {
     if (isAuthenticated===false) {
         return <Navigate to='/'/>
     }
+    if (isCompany===true) {
+        return <Navigate to='/'/>
+    }
     const memberOrLeader = () => {
         return (
             <Card 

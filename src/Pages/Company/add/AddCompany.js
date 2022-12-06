@@ -46,10 +46,7 @@ const AddCompany = ({isAuthenticated, isCompany, isLeader, isMember}) => {
         return <Navigate to='/'/>
     }
 
-    if (isCompany || isLeader || isMember) {
-        return <Navigate to='/company'/>
-    }
-
+    
     return (
         <Container sx={{
             justifyContent: 'center',
