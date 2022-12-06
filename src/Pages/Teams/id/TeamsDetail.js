@@ -76,6 +76,10 @@ const CompanyDetail = ({isAuthenticated, isLeader, isMember, isCompany}) => {
         return <Navigate to='/'/>
     }
 
+    if (isCompany===true) {
+        return <Navigate to='/'/>
+    }
+
     return (
         <Container
             sx={{
@@ -136,7 +140,7 @@ const CompanyDetail = ({isAuthenticated, isLeader, isMember, isCompany}) => {
                                 {members.member}
                             </Typography>
                         ))}
-                        {(isLeader===false && isMember===false && isCompany===false && team.occupied_places<=team.places) ? showJoinButton() : null}
+                        {(isLeader===false && isMember===false && team.occupied_places<=team.places) ? showJoinButton() : null}
                     </CardContent>
                 </Card>
             </Box>
