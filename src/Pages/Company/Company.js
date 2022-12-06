@@ -27,6 +27,10 @@ const Company = ({isAuthenticated, isVerified, isCompany}) => {
         return <Navigate to='/'/>
     }
 
+    if(isCompany===true) {
+        return <Navigate to='/'/>
+    }
+
     return (
         <Container sx={{
             justifyContent: 'center',
