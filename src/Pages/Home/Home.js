@@ -47,7 +47,6 @@ const Home = ({isAuthenticated}) => {
     if (isAuthenticated===false) {
         return <Navigate to='/'/>
     }
-
     const companyWelcome = () => {
         return (
             <Card 

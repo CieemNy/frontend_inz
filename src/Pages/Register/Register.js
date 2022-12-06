@@ -22,13 +22,13 @@ const Register = ({ setAlert, register, isAuthenticated }) => {
         surname: '',
         password: '',
         re_password: '',
-        is_company: '',
+        is_company: false,
     });
     const regex = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
 
     const { email, name, surname, password, re_password, is_company } = formData;
 
-    const onChange = e => setFormData({ ...formData, [e.target.name]: e.target.value });
+    const onChange = e => setFormData({ ...formData, [e.target.name]: e.target.value});
 
     const onSubmit = e => {
         e.preventDefault();
@@ -60,13 +60,13 @@ const Register = ({ setAlert, register, isAuthenticated }) => {
             return false
         }
         if (password === re_password){
-            register(email, name, surname, password, re_password);
+            register(email, name, surname, password, re_password, is_company);
         }
         Swal.fire({
             icon: 'success',
             text: 'Zostałeś pomyślnie zarejestrowany!',
             })
-        setAccountCreated(true);
+        // setAccountCreated(true);
     };
 
     if (isAuthenticated) {
@@ -76,7 +76,7 @@ const Register = ({ setAlert, register, isAuthenticated }) => {
     if(accountCreated) {
         return <Navigate to='/'/>
     }
-
+    console.log(is_company)
     return (
         <Container sx={{
             justifyContent: 'center',
