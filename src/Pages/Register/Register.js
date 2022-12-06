@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { Link, Navigate } from 'react-router-dom';
 import { connect } from 'react-redux';
-import { Container, Box, Stack, Paper, TextField, Button, Typography } from '@mui/material';
+import { Container, Box, Stack, Paper, TextField, Button, Typography, MenuItem } from '@mui/material';
 import { styled } from '@mui/material/styles';
 import { register } from "../../actions/auth";
 import { setAlert } from "../../actions/alert";
@@ -21,13 +21,14 @@ const Register = ({ setAlert, register, isAuthenticated }) => {
         name: '',
         surname: '',
         password: '',
-        re_password: ''
+        re_password: '',
+        is_company: false,
     });
     const regex = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
 
-    const { email, name, surname, password, re_password } = formData;
+    const { email, name, surname, password, re_password, is_company } = formData;
 
-    const onChange = e => setFormData({ ...formData, [e.target.name]: e.target.value });
+    const onChange = e => setFormData({ ...formData, [e.target.name]: e.target.value});
 
     const onSubmit = e => {
         e.preventDefault();
@@ -59,7 +60,7 @@ const Register = ({ setAlert, register, isAuthenticated }) => {
             return false
         }
         if (password === re_password){
-            register(email, name, surname, password, re_password);
+            register(email, name, surname, password, re_password, is_company);
         }
         Swal.fire({
             icon: 'success',
@@ -75,7 +76,7 @@ const Register = ({ setAlert, register, isAuthenticated }) => {
     if(accountCreated) {
         return <Navigate to='/'/>
     }
-
+    console.log(is_company)
     return (
         <Container sx={{
             justifyContent: 'center',
@@ -159,6 +160,28 @@ const Register = ({ setAlert, register, isAuthenticated }) => {
                                 margin="normal"
                                 required
                             />
+                        </Stack>
+                        <Stack spacing={2}>
+                            <TextField
+                                id="is_company" 
+                                type="text"
+                                label="Czy przedstawiciel firmy?"
+                                name="is_company"
+                                value={is_company}
+                                onChange={event => onChange(event)}
+                                variant="outlined"
+                                margin="normal"
+                                select
+                                required
+                                defaultValue={false}
+                            >
+                                <MenuItem key={1} value={true}>
+                                    Tak
+                                </MenuItem>
+                                <MenuItem key={2} value={false}>
+                                    Nie
+                                </MenuItem>
+                            </TextField>
                         </Stack>
                         <Stack spacing={4}>
                             <Button variant="contained" type="submit">Zarejestruj</Button>

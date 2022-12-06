@@ -48,6 +48,34 @@ const Home = ({isAuthenticated}) => {
         return <Navigate to='/'/>
     }
 
+    const createCompany = () => {
+        return (
+            <Card 
+                sx={{
+                    display: 'flex', 
+                    padding: 2, 
+                    margin: 2,
+                    justifyContent: 'center',
+                }}
+            >
+                <Typography variant="h6">Jesteś Przedstawicielem Firmy? Kliknij przycisk obok, żeby dodać wizytówkę swojej firmy</Typography>
+                <Button 
+                    sx={{
+                        marginLeft: 5,
+                        backgroundColor: 'green',
+                        ':hover': {
+                            backgroundColor: 'green',
+                        }
+                    }}
+                    variant="contained"
+                    href='/company/add'
+                >
+                    Dodaj
+                </Button>
+            </Card>
+        );
+    };
+
     const companyWelcome = () => {
         return (
             <Card 
@@ -218,7 +246,8 @@ const Home = ({isAuthenticated}) => {
                 justifyContent: 'center',
                 alignItems: 'center',
             }}>
-                {userData.is_company===true ? companyWelcome() : null}
+                {userData.is_company===true && userData.is_verified===true && userData.is_companyOwner===false ? createCompany() : null}
+                {userData.is_company===true && userData.is_verified===true && userData.is_companyOwner===true ? companyWelcome() : null}
                 {userData.is_leader===true || userData.is_member===true ? teamWelcome() : null}
                 {userData.is_leader===false && userData.is_member===false && userData.is_company===false ?
                     <CardContent

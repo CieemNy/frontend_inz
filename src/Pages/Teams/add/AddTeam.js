@@ -43,7 +43,11 @@ const AddCompany = ({isAuthenticated, isLeader, isMember, isCompany}) => {
         return <Navigate to='/'/>
     }
 
-    if (isLeader || isMember || isCompany) {
+    if (isCompany===true) {
+        return <Navigate to='/'/>
+    }
+
+    if (isLeader || isMember) {
         return <Navigate to='/teams'/>
     }
 

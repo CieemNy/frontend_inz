@@ -27,33 +27,10 @@ const Company = ({isAuthenticated, isVerified, isCompany}) => {
         return <Navigate to='/'/>
     }
 
-    const verified = () => {
-        return (
-            <Card 
-                sx={{
-                    display: 'flex', 
-                    padding: 2, 
-                    margin: 2,
-                    justifyContent: 'center',
-                }}
-            >
-                <Typography variant="h6">Jesteś Przedstawicielem Firmy? Kliknij przycisk obok, żeby dodać wizytówkę swojej firmy</Typography>
-                <Button 
-                    sx={{
-                        marginLeft: 5,
-                        backgroundColor: 'green',
-                        ':hover': {
-                            backgroundColor: 'green',
-                        }
-                    }}
-                    variant="contained"
-                    href='/company/add'
-                >
-                    Dodaj
-                </Button>
-            </Card>
-        );
-    };
+    if(isCompany===true) {
+        return <Navigate to='/'/>
+    }
+
     return (
         <Container sx={{
             justifyContent: 'center',
@@ -66,7 +43,6 @@ const Company = ({isAuthenticated, isVerified, isCompany}) => {
             }}>
                 
             </Box>
-            {isVerified && !isCompany ? verified() : null}
             <Box>
                 {companies.map(companies => (
                     <Card 
