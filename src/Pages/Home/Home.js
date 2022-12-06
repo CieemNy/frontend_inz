@@ -246,7 +246,8 @@ const Home = ({isAuthenticated}) => {
                 justifyContent: 'center',
                 alignItems: 'center',
             }}>
-                {userData.is_company===true && userData.is_verified===true ? createCompany() : null}
+                {userData.is_company===true && userData.is_verified===true && userData.is_companyOwner===false ? createCompany() : null}
+                {userData.is_company===true && userData.is_verified===true && userData.is_companyOwner===true ? companyWelcome() : null}
                 {userData.is_leader===true || userData.is_member===true ? teamWelcome() : null}
                 {userData.is_leader===false && userData.is_member===false && userData.is_company===false ?
                     <CardContent
