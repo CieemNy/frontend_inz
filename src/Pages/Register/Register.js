@@ -5,7 +5,6 @@ import { Container, Box, Stack, Paper, TextField, Button, Typography, MenuItem }
 import { styled } from '@mui/material/styles';
 import { register } from "../../actions/auth";
 import { setAlert } from "../../actions/alert";
-import Swal from 'sweetalert2';
 
 const Item = styled(Paper)(({ theme }) => ({
     ...theme.typography.body2,
@@ -34,38 +33,19 @@ const Register = ({ setAlert, register, isAuthenticated }) => {
         e.preventDefault();
         if (!regex.test(email)){
             setAlert('Wprowadziłeś niepoprawny adres email!', 'error');
-            Swal.fire({
-                icon: 'error',
-                title: 'Oops...',
-                text: 'Wprowadziłeś niepoprawny adres email!',
-              })
             return false
         }
         if (password.length<9){
             setAlert('Hasło musi mieć conajmniej 9 znaków!', 'error');
-            Swal.fire({
-                icon: 'error',
-                title: 'Oops...',
-                text: 'Hasło musi mieć conajmniej 9 znaków!',
-              })
             return false
         }
         if (password!==re_password){
             setAlert('Hasła nie są takie same!', 'error');
-            Swal.fire({
-                icon: 'error',
-                title: 'Oops...',
-                text: 'Hasła nie są takie same!',
-              })
             return false
         }
         if (password === re_password){
             register(email, name, surname, password, re_password, is_company);
         }
-        Swal.fire({
-            icon: 'success',
-            text: 'Zostałeś pomyślnie zarejestrowany!',
-            })
         setAccountCreated(true);
     };
 
@@ -76,11 +56,10 @@ const Register = ({ setAlert, register, isAuthenticated }) => {
     if(accountCreated) {
         return <Navigate to='/'/>
     }
-    console.log(is_company)
     return (
         <Container sx={{
             justifyContent: 'center',
-            marginTop: 15
+            marginTop: 5
         }}>
             <Box>
                 <Box>
