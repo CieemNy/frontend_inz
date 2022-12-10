@@ -117,12 +117,13 @@ export const register = (email, name, surname, password, re_password, is_company
             type: REGISTER_SUCCESS,
             payload: res.data
         });
+        dispatch(setAlert('Zostałeś pomyślnie zarejestrowany!', 'success'));
 
     } catch (err) {
         dispatch({
             type: REGISTER_FAIL
         })
-        dispatch(setAlert('Wystąpił błąd podczas rejestracji!', 'error'));
+        dispatch(setAlert('Twój email znajduje się w naszej bazie lub twoje hasło jest zbyt powszechne!', 'error'));
     }
 };
 

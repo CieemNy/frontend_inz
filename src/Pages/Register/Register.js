@@ -59,7 +59,7 @@ const Register = ({ setAlert, register, isAuthenticated }) => {
     return (
         <Container sx={{
             justifyContent: 'center',
-            marginTop: 15
+            marginTop: 5
         }}>
             <Box>
                 <Box>
