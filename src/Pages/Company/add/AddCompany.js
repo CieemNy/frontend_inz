@@ -53,7 +53,7 @@ const AddCompany = ({isAuthenticated, isCompanyOwner}) => {
     return (
         <Container sx={{
             justifyContent: 'center',
-            marginTop: 15
+            marginTop: 5
         }}>
               <Box>
                   <Stack spacing={2}>
