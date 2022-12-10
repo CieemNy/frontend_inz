@@ -1,8 +1,9 @@
 import React, { Fragment } from "react";
-import { AppBar, Box, Toolbar, Typography } from '@mui/material';
+import { AppBar, Box, Toolbar, Typography, Container } from '@mui/material';
 import { Link } from "react-router-dom";
 import { connect } from 'react-redux';
 import { logout } from "../actions/auth";
+import Alerts from "./Alerts";
 
 const Navbar = ({ logout, isAuthenticated }) => {
 
@@ -107,6 +108,21 @@ const Navbar = ({ logout, isAuthenticated }) => {
                     {isAuthenticated ? auth() : guest()}
                 </Toolbar>
             </AppBar>
+            <Container 
+                sx={{
+                    justifyContent: 'center',
+                    marginTop: 10,
+                }}
+            >
+                <Box 
+                    sx={{
+                            alignItems: "center",
+                            justifyContent: "center",
+                        }}
+                >
+                    <Alerts/>
+                </Box>
+        </Container>
         </Box>
     )
 }
