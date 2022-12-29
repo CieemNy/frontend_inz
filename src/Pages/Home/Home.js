@@ -28,6 +28,7 @@ const Home = ({isAuthenticated}) => {
         })
         setUserCompany(res);
     }
+
     const getUserTeam = async () => {
         const {data: res} = await axios.get(`http://localhost:8000/accounts/user/team`,{
             headers: {
@@ -36,6 +37,8 @@ const Home = ({isAuthenticated}) => {
         })
         setUserTeam(res);
     }
+
+
     useEffect(() => {
         if(!didFetch){
             setDidFetch(true);
@@ -207,6 +210,7 @@ const Home = ({isAuthenticated}) => {
                                 >
                                     <Link
                                         to={`/team/${userTeam.id}/choices/add`}
+                                        state={{userTeam: userTeam.user}}
                                         style={{ 
                                             textDecoration: 'none', 
                                             color: 'white' 
@@ -227,10 +231,7 @@ const Home = ({isAuthenticated}) => {
                                 </CardActions>
                             </>
                             :
-                            <>
-                            <Typography mt={2}>Twój zespół nie jest skompletowany,</Typography>
-                            <Typography>aby móc określić wybory firm</Typography>
-                            </>
+                            null
                             }
                         </>
                     ))}
@@ -238,7 +239,6 @@ const Home = ({isAuthenticated}) => {
             </Card>
         );
     };
-
     return (
         <Container sx={{
             justifyContent: 'center',

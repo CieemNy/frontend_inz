@@ -1,5 +1,5 @@
 import React, {useState, useEffect} from "react";
-import { useParams, Navigate} from 'react-router-dom';
+import { useParams, Navigate, useLocation} from 'react-router-dom';
 import { Container, Box, Stack, Paper, TextField, Button, Typography, MenuItem} from '@mui/material';
 import { styled } from '@mui/material/styles';
 import axios from "axios";
@@ -13,7 +13,7 @@ const Item = styled(Paper)(({ theme }) => ({
     color: 'black',
   }));
 
-const AddChoices = ({isAuthenticated}) => {
+const AddChoices = ({isAuthenticated, isMadeChoices, userID}) => {
     const {teamId} = useParams();
     const [choicesCreated, setChoicesCreated] = useState(false);
     const [companies, setCompanies] = useState([]);
@@ -24,6 +24,10 @@ const AddChoices = ({isAuthenticated}) => {
         choice_third: '',
         choice_fourth: '',
     })
+
+    const location = useLocation();
+    const { state } = location;
+
     const onChange = e => setFormData({ ...formData, [e.target.name]: e.target.value });
 
     const onSubmit = async (e) => {
@@ -59,10 +63,11 @@ const AddChoices = ({isAuthenticated}) => {
         })
         setCompanies(res);
     }
+
     useEffect(() => {
         if(!didFetch){
-            setDidFetch(true)
             getCompanies();
+            setDidFetch(true)
         }
     }, [didFetch])
 
@@ -70,10 +75,18 @@ const AddChoices = ({isAuthenticated}) => {
       return <Navigate to='/home'/>
     }
 
+    if(isMadeChoices===true){
+        return <Navigate to='/home'/>
+    }
+    
     if (isAuthenticated===false) {
         return <Navigate to='/'/>
     }
 
+    if (state.userTeam !== userID) {
+        return <Navigate to='/home'/>
+    }
+    console.log(state.userTeam)
     return (
         <Container sx={{
             justifyContent: 'center',
@@ -174,7 +187,8 @@ const mapStateToProps = state => ({
     isCompany: state.auth.user.is_company,
     isLeader: state.auth.user.is_leader,
     isMember: state.auth.user.is_member,
-    isCompanyOwner: state.auth.user.is_companyOwner
+    isMadeChoices: state.auth.user.is_madeChoices,
+    userID: state.auth.user.id
 });
 
 export default connect(mapStateToProps, {})(AddChoices);
