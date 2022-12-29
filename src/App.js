@@ -13,6 +13,7 @@ import Teams from './Pages/Teams/Teams';
 import TeamsDetail from './Pages/Teams/id/TeamsDetail';
 import AddTeam from './Pages/Teams/add/AddTeam';
 import AddProject from './Pages/Company/Projects/AddProject';
+import AddChoices from './Pages/Choices/add/AddChoices';
 
 function App() {
   return (
@@ -30,6 +31,7 @@ function App() {
                     <Route path='/teams' element={<Teams/>}/>
                     <Route path='/teams/:teamId' element={<TeamsDetail/>}/>
                     <Route path='/teams/add' element={<AddTeam/>}/>
+                    <Route path='/team/:teamId/choices/add' element={<AddChoices/>}/>
                 </Routes>
             </Layout>
         </Router>
