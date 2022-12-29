@@ -8,7 +8,9 @@ const Home = ({isAuthenticated}) => {
     const [userData, setUserData] = useState([]);
     const [userCompany, setUserCompany] = useState([]);
     const [userTeam, setUserTeam] = useState([]);
+    const [userTeamChoices, setUserTeamChoices] = useState([]);
     const [didFetch, setDidFetch] = useState(false);
+
     useEffect(()=>{
         const getUser = async () => {
             const {data: res} = await axios.get(`${process.env.REACT_APP_API_URL}/auth/users/me/`, {
@@ -20,6 +22,7 @@ const Home = ({isAuthenticated}) => {
         }
         getUser();
     }, [])
+
     const getUserCompany = async () => {
         const {data: res} = await axios.get(`http://localhost:8000/accounts/user/company`,{
             headers: {
@@ -38,12 +41,21 @@ const Home = ({isAuthenticated}) => {
         setUserTeam(res);
     }
 
+    const getUserTeamChoices = async () => {
+        const {data: res} = await axios.get(`http://localhost:8000/accounts/user/team/choices`,{
+            headers: {
+                'Authorization': `JWT ${localStorage.getItem('access')}`
+            }
+        })
+        setUserTeamChoices(res);
+    }
 
     useEffect(() => {
         if(!didFetch){
             setDidFetch(true);
             getUserCompany();
             getUserTeam();
+            getUserTeamChoices();
         }
     }, [didFetch])
 
@@ -156,6 +168,7 @@ const Home = ({isAuthenticated}) => {
             </Card>
         );
     };
+
     const teamWelcome = () => {
         return (
             <Card 
@@ -199,7 +212,7 @@ const Home = ({isAuthenticated}) => {
                                     
                                 </Link>
                             </CardActions>
-                            {userData.is_leader===true && (userTeam.places===userTeam.occupied_places) ?
+                            {userData.is_leader===true && userData.is_madeChoices===false && (userTeam.places===userTeam.occupied_places) ?
                             <>
                                 <Typography mt={2}>Określ wybory</Typography>
                                 <CardActions
@@ -231,7 +244,19 @@ const Home = ({isAuthenticated}) => {
                                 </CardActions>
                             </>
                             :
-                            null
+                            <>
+                                {userTeamChoices.map(userTeamChoices => (
+                                    <>
+                                        <Typography mt={2}>Wybory zespołu dokonane przez Lidera</Typography>
+                                        <Typography>1. {userTeamChoices.first}</Typography>
+                                        <Typography>2. {userTeamChoices.second}</Typography>
+                                        <Typography>3. {userTeamChoices.third}</Typography>
+                                        <Typography>4. {userTeamChoices.fourth}</Typography>
+                                        <Typography mt={2}>Wybór ostateczny dokonany przez Administratora</Typography>
+                                        <Typography>{userTeamChoices.final}</Typography>
+                                    </>
+                                ))}
+                            </>
                             }
                         </>
                     ))}
@@ -239,6 +264,50 @@ const Home = ({isAuthenticated}) => {
             </Card>
         );
     };
+
+    const adminWelcome = () => {
+        return (
+            <Card 
+                sx={{
+                    display: 'flex', 
+                    padding: 2, 
+                    margin: 2,
+                    justifyContent: 'center',
+                    minWidth: 300,
+                    minHeight: 300
+                }}
+            >
+                <CardContent
+                    sx={{
+                        justifyContent: 'center',
+                        textAlign: 'center'
+                    }}
+                >
+                    <Typography variant="h6" gutterBottom>Witaj {userData.name} {userData.surname}!</Typography>
+                    <CardActions
+                        sx={{
+                            display: 'flex',
+                            justifyContent: 'center',
+                        }}
+                    >
+                        <Button 
+                            variant="contained"
+                            sx={{
+                                backgroundColor: 'green',
+                                ':hover': {
+                                    backgroundColor: 'green',
+                                }
+                            }}
+                            href='final/choices'
+                        >
+                            Wybierz finalne firmy zespołów
+                        </Button>
+                    </CardActions>
+                </CardContent>
+            </Card>
+        );
+    }
+
     return (
         <Container sx={{
             justifyContent: 'center',
@@ -252,7 +321,7 @@ const Home = ({isAuthenticated}) => {
                 {userData.is_company===true && userData.is_verified===true && userData.is_companyOwner===false ? createCompany() : null}
                 {userData.is_company===true && userData.is_verified===true && userData.is_companyOwner===true ? companyWelcome() : null}
                 {userData.is_leader===true || userData.is_member===true ? teamWelcome() : null}
-                {userData.is_leader===false && userData.is_member===false && userData.is_company===false ?
+                {userData.is_leader===false && userData.is_member===false && userData.is_company===false && userData.is_superuser===false ?
                     <CardContent
                     sx={{
                         justifyContent: 'center',
@@ -264,6 +333,7 @@ const Home = ({isAuthenticated}) => {
                 :
                 null
                 }
+                {userData.is_superuser===true ? adminWelcome() : null}
             </Box>
         </Container>
     );
