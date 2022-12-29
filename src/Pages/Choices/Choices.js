@@ -9,7 +9,7 @@ const Choices = ({isAuthenticated, isAdmin}) => {
     const [choices, setChoices] = useState([]);
     const [didFetch, setDidFetch] = useState(false);
 
-    const getCompanies = async () => {
+    const getChoices = async () => {
         const {data: res} = await axios.get(`http://localhost:8000/accounts/teams/choices`,{
             headers: {
                 'Authorization': `JWT ${localStorage.getItem('access')}`
@@ -21,7 +21,7 @@ const Choices = ({isAuthenticated, isAdmin}) => {
     useEffect(() => {
         if(!didFetch){
             setDidFetch(true)
-            getCompanies();
+            getChoices();
         }
     }, [didFetch])
 
