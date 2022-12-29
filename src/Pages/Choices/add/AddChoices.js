@@ -1,9 +1,10 @@
 import React, {useState, useEffect} from "react";
-import { Navigate} from 'react-router-dom';
+import { useParams, Navigate} from 'react-router-dom';
 import { Container, Box, Stack, Paper, TextField, Button, Typography, MenuItem} from '@mui/material';
 import { styled } from '@mui/material/styles';
 import axios from "axios";
 import { connect } from "react-redux";
+import Swal from 'sweetalert2';
 
 const Item = styled(Paper)(({ theme }) => ({
     ...theme.typography.body2,
@@ -12,7 +13,8 @@ const Item = styled(Paper)(({ theme }) => ({
     color: 'black',
   }));
 
-const AddChoices = ({isAuthenticated, isCompanyOwner}) => {
+const AddChoices = ({isAuthenticated}) => {
+    const {teamId} = useParams();
     const [choicesCreated, setChoicesCreated] = useState(false);
     const [companies, setCompanies] = useState([]);
     const [didFetch, setDidFetch] = useState(false);
@@ -22,11 +24,31 @@ const AddChoices = ({isAuthenticated, isCompanyOwner}) => {
         choice_third: '',
         choice_fourth: '',
     })
-    
     const onChange = e => setFormData({ ...formData, [e.target.name]: e.target.value });
 
     const onSubmit = async (e) => {
         e.preventDefault();
+        try {
+            const res = await axios.post(`http://localhost:8000/accounts/teams/${teamId}/choices/add`, formData, {
+              headers: {
+                'Authorization': `JWT ${localStorage.getItem('access')}`
+            }
+            })
+          } catch (e) {
+            Swal.fire({
+                icon: 'error',
+                text: 'Wystąpił błąd! Nie możesz w swoich wyborach podać więcej niż raz jednej firmy',
+            })
+          return false;
+          }
+          Swal.fire({
+            icon: 'success',
+            text: 'Dokonałeś wyborów dla swojego zespołu!',
+            }).then(okay => {
+            if(okay){
+                setChoicesCreated(true);
+            }
+        })
     };
 
     const getCompanies = async () => {
