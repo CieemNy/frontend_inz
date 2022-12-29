@@ -196,7 +196,7 @@ const Home = ({isAuthenticated}) => {
                                     
                                 </Link>
                             </CardActions>
-                            {userData.is_leader===true ?
+                            {userData.is_leader===true && (userTeam.places===userTeam.occupied_places) ?
                             <>
                                 <Typography mt={2}>Określ wybory</Typography>
                                 <CardActions
@@ -227,7 +227,10 @@ const Home = ({isAuthenticated}) => {
                                 </CardActions>
                             </>
                             :
-                            null
+                            <>
+                            <Typography mt={2}>Twój zespół nie jest skompletowany,</Typography>
+                            <Typography>aby móc określić wybory firm</Typography>
+                            </>
                             }
                         </>
                     ))}
