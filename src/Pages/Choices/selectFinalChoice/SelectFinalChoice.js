@@ -12,6 +12,7 @@ const SelectFinalChoice = ({isAuthenticated, isAdmin}) => {
     const [finalChoiceCreated, setfinalChoiceCreated] = useState(false);
     const [didFetch, setDidFetch] = useState(false);
     const [companies, setCompanies] = useState([]);
+    const [availableCompanies, setAvailableCompanies] = useState([]);
     const [formData, setFormData] = useState({
         final_choice: '',
     })
@@ -52,6 +53,16 @@ const SelectFinalChoice = ({isAuthenticated, isAdmin}) => {
         setCompanies(res);
     }
 
+    const getAvailableCompanies = async () => {
+        const {data: res} = await axios.get(`http://localhost:8000/accounts/company/places`,{
+            headers: {
+                'Authorization': `JWT ${localStorage.getItem('access')}`
+            }
+        })
+        setAvailableCompanies(res);
+    }
+
+
     const getChoice = async () => {
         const {data: res} = await axios.get(`http://localhost:8000/accounts/teams/choices/${choiceId}`,{
             headers: {
@@ -66,6 +77,7 @@ const SelectFinalChoice = ({isAuthenticated, isAdmin}) => {
             setDidFetch(true)
             getChoice();
             getCompanies();
+            getAvailableCompanies();
         }
     }, [didFetch])
 
@@ -156,8 +168,8 @@ const SelectFinalChoice = ({isAuthenticated, isAdmin}) => {
                             required
                             select
                         >
-                            {companies.map(companies => (
-                                <MenuItem key={companies.id} value={companies.id}>{companies.name}</MenuItem>
+                            {availableCompanies.map(availableCompanies => (
+                                <MenuItem key={availableCompanies.id} value={availableCompanies.id}>{availableCompanies.name}</MenuItem>
                             ))}
                         </TextField>
                       </Stack>
