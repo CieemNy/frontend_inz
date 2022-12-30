@@ -58,7 +58,7 @@ const Teams = ({isAuthenticated, isLeader, isMember, isCompany}) => {
     return (
         <Container sx={{
             justifyContent: 'center',
-            marginTop: 15
+            marginTop: 5
         }}>
             <Box sx={{
                 display: 'flex',
