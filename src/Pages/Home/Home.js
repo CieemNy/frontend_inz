@@ -322,6 +322,25 @@ const Home = ({isAuthenticated}) => {
                             Rozpatrzone wybory drużyn
                         </Button>
                     </CardActions>
+                    <CardActions
+                        sx={{
+                            display: 'flex',
+                            justifyContent: 'center',
+                        }}
+                    >
+                        <Button 
+                            variant="contained"
+                            sx={{
+                                backgroundColor: 'green',
+                                ':hover': {
+                                    backgroundColor: 'green',
+                                }
+                            }}
+                            href='final/choices/list'
+                        >
+                            Finalna lista przypisanych drużyn do firm
+                        </Button>
+                    </CardActions>
                 </CardContent>
             </Card>
         );
