@@ -86,7 +86,6 @@ const AddChoices = ({isAuthenticated, isMadeChoices, userID}) => {
     if (state.userTeam !== userID) {
         return <Navigate to='/home'/>
     }
-    console.log(state.userTeam)
     return (
         <Container sx={{
             justifyContent: 'center',
