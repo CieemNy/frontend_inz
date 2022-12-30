@@ -1,7 +1,7 @@
 import axios from 'axios';
 import React, {useEffect, useState} from 'react';
 import { useParams, Navigate } from 'react-router-dom';
-import { Box, Card, CardContent, Divider, Container, Typography, Button, Stack, TextField, MenuItem } from '@mui/material';
+import { Box, Card, CardContent, Divider, Container, Typography, Button, Stack, TextField, MenuItem, Grid } from '@mui/material';
 import { connect } from 'react-redux';
 import Swal from 'sweetalert2';
 
@@ -83,12 +83,44 @@ const SelectFinalChoice = ({isAuthenticated, isAdmin}) => {
     }
 
     return (
-        <Container  
+        <Container
             sx={{
                 justifyContent: 'center',
                 marginTop: 5
             }}
         >
+            <Box 
+                sx={{
+                    display: 'flex',
+                    justifyContent: 'center',
+                    alignItems: 'center',
+                }}
+            >
+                <Card>
+                    <CardContent>
+                    <Typography variant="h5">Lista firm będących w systemie</Typography>
+                        <Grid container>
+                            <Grid item xs={6} sx={{textAlign: 'center'}}>
+                                <Typography mt={1}>Nazwa Firmy</Typography>
+                            </Grid>
+                            <Grid item xs={6} sx={{textAlign: 'center'}}>
+                                <Typography mt={1}>Dostępne miejsca</Typography>
+                            </Grid>
+                        </Grid>
+                        <Divider sx={{marginTop: 1, marginBottom: 1}}/>
+                        {companies.map(companies=>(
+                            <Grid container>
+                                <Grid item xs={6} md={6} sx={{textAlign: 'center'}}>
+                                    <Typography>{companies.name}</Typography>
+                                </Grid>
+                                <Grid item xs={6} md={6} sx={{textAlign: 'center'}}>
+                                    <Typography>{companies.occupied_places}/{companies.places}</Typography>
+                                </Grid>
+                            </Grid>
+                        ))}
+                    </CardContent>
+                </Card>
+            </Box>
             <Box 
                 sx={{
                     display: 'flex',
