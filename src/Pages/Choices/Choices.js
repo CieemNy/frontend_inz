@@ -75,15 +75,7 @@ const Choices = ({isAuthenticated, isAdmin}) => {
                                     />
                                 </Typography>
                             :
-                            <Typography mt={1}>Status wyborów: Rozpatrzone
-                                <CheckIcon
-                                    sx={{
-                                        paddingLeft: 1,
-                                        verticalAlign: 'middle',
-                                    }} 
-                                    color='success'
-                                />
-                            </Typography>
+                            null
                         }
                         </Card>
                     </CardContent>
