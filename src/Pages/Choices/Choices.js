@@ -3,6 +3,8 @@ import React, {useEffect, useState} from 'react';
 import { connect } from 'react-redux';
 import { Link, Navigate } from 'react-router-dom';
 import { Box, Card, CardContent, CardActions, Button, Container, Typography } from '@mui/material';
+import HighlightOffIcon from '@mui/icons-material/HighlightOff';
+import CheckIcon from '@mui/icons-material/Check';
 
 const Choices = ({isAuthenticated, isAdmin}) => {
     const [choices, setChoices] = useState([]);
@@ -59,13 +61,31 @@ const Choices = ({isAuthenticated, isAdmin}) => {
                         <Typography>2. {choices.second}</Typography>
                         <Typography>3. {choices.third}</Typography>
                         <Typography>4. {choices.fourth}</Typography>
-                        <Typography mt={2}>Data dokonania wyborów: {choices.date}</Typography>
+                        <Card sx={{padding: 1, marginTop: 1}}>
+                        <Typography>Data dokonania wyborów: {choices.date}</Typography>
                         {choices.is_considered===false 
                             ?
-                            <Typography>Status wyborów: Nierozpatrzone</Typography> 
+                                <Typography mt={1}>Status wyborów: Nierozpatrzone 
+                                    <HighlightOffIcon 
+                                        sx={{
+                                            paddingLeft: 1,
+                                            verticalAlign: 'middle',
+                                        }} 
+                                        color='error'
+                                    />
+                                </Typography>
                             :
-                            <Typography>Status wyborów: Rozpatrzone</Typography> 
+                            <Typography mt={1}>Status wyborów: Rozpatrzone
+                                <CheckIcon
+                                    sx={{
+                                        paddingLeft: 1,
+                                        verticalAlign: 'middle',
+                                    }} 
+                                    color='success'
+                                />
+                            </Typography>
                         }
+                        </Card>
                     </CardContent>
                     <CardActions
                             sx={{
@@ -73,6 +93,7 @@ const Choices = ({isAuthenticated, isAdmin}) => {
                                 justifyContent: 'right',
                             }}
                         >
+                            {choices.is_considered===false ? 
                             <Link
                                 to={`/final/choices/${choices.id}`}
                                 style={{ 
@@ -84,6 +105,9 @@ const Choices = ({isAuthenticated, isAdmin}) => {
                                     Rozpatrz
                                 </Button>
                             </Link>
+                            :
+                            null
+                            }
                     </CardActions>
                 </Card>
                 ))}
