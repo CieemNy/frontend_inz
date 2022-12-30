@@ -75,6 +75,12 @@ const SelectFinalChoice = ({isAuthenticated, isAdmin}) => {
     if(isAdmin===false) {
         return <Navigate to='/home'/>
     }
+    if(choice.is_considered===true){
+        return <Navigate to='/final/choices'/>
+    }
+    if(finalChoiceCreated===true){
+        return <Navigate to='/final/choices'/>
+    }
 
     return (
         <Container  
