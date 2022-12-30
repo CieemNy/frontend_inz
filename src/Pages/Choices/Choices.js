@@ -101,7 +101,16 @@ const Choices = ({isAuthenticated, isAdmin}) => {
                                     color: 'white' 
                                 }}
                             >
-                                <Button variant="contained" >
+                                <Button 
+                                    variant="contained"
+                                    sx={{
+                                        marginLeft: 5,
+                                        backgroundColor: 'green',
+                                        ':hover': {
+                                            backgroundColor: 'green',
+                                        }
+                                    }}
+                                >
                                     Rozpatrz
                                 </Button>
                             </Link>
