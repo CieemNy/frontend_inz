@@ -17,6 +17,7 @@ import AddChoices from './Pages/Choices/add/AddChoices';
 import Choices from './Pages/Choices/Choices';
 import SelectFinalChoice from './Pages/Choices/selectFinalChoice/SelectFinalChoice';
 import ConsideredChoices from './Pages/Choices/ConsideredChoices';
+import FinalList from './Pages/Choices/FinalList';
 
 function App() {
   return (
@@ -37,6 +38,7 @@ function App() {
                     <Route path='/team/:teamId/choices/add' element={<AddChoices/>}/>
                     <Route path='/final/choices' element={<Choices/>}/>
                     <Route path='/final/choices/considered' element={<ConsideredChoices/>}/>
+                    <Route path='/final/choices/list' element={<FinalList/>}/>
                     <Route path='/final/choices/:choiceId' element={<SelectFinalChoice/>}/>
                 </Routes>
             </Layout>
