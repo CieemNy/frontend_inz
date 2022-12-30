@@ -303,6 +303,25 @@ const Home = ({isAuthenticated}) => {
                             Rozpatrz wybory drużyn
                         </Button>
                     </CardActions>
+                    <CardActions
+                        sx={{
+                            display: 'flex',
+                            justifyContent: 'center',
+                        }}
+                    >
+                        <Button 
+                            variant="contained"
+                            sx={{
+                                backgroundColor: 'green',
+                                ':hover': {
+                                    backgroundColor: 'green',
+                                }
+                            }}
+                            href='final/choices/considered'
+                        >
+                            Rozpatrzone wybory drużyn
+                        </Button>
+                    </CardActions>
                 </CardContent>
             </Card>
         );

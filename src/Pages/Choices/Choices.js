@@ -4,7 +4,6 @@ import { connect } from 'react-redux';
 import { Link, Navigate } from 'react-router-dom';
 import { Box, Card, CardContent, CardActions, Button, Container, Typography } from '@mui/material';
 import HighlightOffIcon from '@mui/icons-material/HighlightOff';
-import CheckIcon from '@mui/icons-material/Check';
 
 const Choices = ({isAuthenticated, isAdmin}) => {
     const [choices, setChoices] = useState([]);
