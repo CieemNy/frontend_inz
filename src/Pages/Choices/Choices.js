@@ -4,7 +4,6 @@ import { connect } from 'react-redux';
 import { Link, Navigate } from 'react-router-dom';
 import { Box, Card, CardContent, CardActions, Button, Container, Typography } from '@mui/material';
 
-
 const Choices = ({isAuthenticated, isAdmin}) => {
     const [choices, setChoices] = useState([]);
     const [didFetch, setDidFetch] = useState(false);
@@ -32,7 +31,7 @@ const Choices = ({isAuthenticated, isAdmin}) => {
     if(isAdmin===false) {
         return <Navigate to='/home'/>
     }
-
+    console.log(choices)
     return (
         <Container sx={{
             justifyContent: 'center',
@@ -46,7 +45,48 @@ const Choices = ({isAuthenticated, isAdmin}) => {
                 
             </Box>
             <Box>
-                
+                {choices.map(choices => (
+                    <Card 
+                        key={choices.id} 
+                        sx={{
+                            padding: 2, 
+                            margin: 2,
+                            }}
+                    >
+                    <CardContent>
+                        <Typography variant="h5">Wybory Team'u: {choices.teamName}</Typography>
+                        <Typography mt={1}>1. {choices.first}</Typography>
+                        <Typography>2. {choices.second}</Typography>
+                        <Typography>3. {choices.third}</Typography>
+                        <Typography>4. {choices.fourth}</Typography>
+                        <Typography mt={2}>Data dokonania wyborów: {choices.date}</Typography>
+                        {choices.is_considered===false 
+                            ?
+                            <Typography>Status wyborów: Nierozpatrzone</Typography> 
+                            :
+                            <Typography>Status wyborów: Rozpatrzone</Typography> 
+                        }
+                    </CardContent>
+                    <CardActions
+                            sx={{
+                                display: 'flex',
+                                justifyContent: 'right',
+                            }}
+                        >
+                            <Link
+                                to={`/final/choices/${choices.id}`}
+                                style={{ 
+                                    textDecoration: 'none', 
+                                    color: 'white' 
+                                }}
+                            >
+                                <Button variant="contained" >
+                                    Rozpatrz
+                                </Button>
+                            </Link>
+                    </CardActions>
+                </Card>
+                ))}
             </Box>
         </Container>
     )
