@@ -21,7 +21,7 @@ const SelectFinalChoice = ({isAuthenticated, isAdmin}) => {
     const onSubmit = async (e) => {
         e.preventDefault();
         try {
-            const res = await axios.put(`http://localhost:8000/accounts/teams/${choiceId}//finalchoice`, formData, {
+            const res = await axios.put(`http://localhost:8000/accounts/teams/choices/${choiceId}/finalchoice`, formData, {
               headers: {
                 'Authorization': `JWT ${localStorage.getItem('access')}`
             }
