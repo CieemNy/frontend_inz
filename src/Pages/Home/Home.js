@@ -300,7 +300,7 @@ const Home = ({isAuthenticated}) => {
                             }}
                             href='final/choices'
                         >
-                            Wybierz finalne firmy zespołów
+                            Rozpatrz wybory drużyn
                         </Button>
                     </CardActions>
                 </CardContent>

@@ -1,17 +1,16 @@
 import axios from 'axios';
 import React, {useEffect, useState} from 'react';
 import { connect } from 'react-redux';
-import { Link, Navigate } from 'react-router-dom';
-import { Box, Card, CardContent, CardActions, Button, Container, Typography } from '@mui/material';
-import HighlightOffIcon from '@mui/icons-material/HighlightOff';
+import { Navigate } from 'react-router-dom';
+import { Box, Card, CardContent, Container, Typography } from '@mui/material';
 import CheckIcon from '@mui/icons-material/Check';
 
-const Choices = ({isAuthenticated, isAdmin}) => {
+const ConsideredChoices = ({isAuthenticated, isAdmin}) => {
     const [choices, setChoices] = useState([]);
     const [didFetch, setDidFetch] = useState(false);
 
     const getChoices = async () => {
-        const {data: res} = await axios.get(`http://localhost:8000/accounts/teams/choices`,{
+        const {data: res} = await axios.get(`http://localhost:8000/accounts/teams/choices/considered`,{
             headers: {
                 'Authorization': `JWT ${localStorage.getItem('access')}`
             }
@@ -63,61 +62,22 @@ const Choices = ({isAuthenticated, isAdmin}) => {
                         <Typography>4. {choices.fourth}</Typography>
                         <Card sx={{padding: 1, marginTop: 1}}>
                         <Typography>Data dokonania wyborów: {choices.date}</Typography>
-                        {choices.is_considered===false 
+                        {choices.is_considered===true 
                             ?
-                                <Typography mt={1}>Status wyborów: Nierozpatrzone 
-                                    <HighlightOffIcon 
+                                <Typography mt={1}>Status wyborów: Rozpatrzone
+                                    <CheckIcon
                                         sx={{
                                             paddingLeft: 1,
                                             verticalAlign: 'middle',
                                         }} 
-                                        color='error'
+                                        color='success'
                                     />
                                 </Typography>
                             :
-                            <Typography mt={1}>Status wyborów: Rozpatrzone
-                                <CheckIcon
-                                    sx={{
-                                        paddingLeft: 1,
-                                        verticalAlign: 'middle',
-                                    }} 
-                                    color='success'
-                                />
-                            </Typography>
+                            null
                         }
                         </Card>
                     </CardContent>
-                    <CardActions
-                            sx={{
-                                display: 'flex',
-                                justifyContent: 'right',
-                            }}
-                        >
-                            {choices.is_considered===false ? 
-                            <Link
-                                to={`/final/choices/${choices.id}`}
-                                style={{ 
-                                    textDecoration: 'none', 
-                                    color: 'white' 
-                                }}
-                            >
-                                <Button 
-                                    variant="contained"
-                                    sx={{
-                                        marginLeft: 5,
-                                        backgroundColor: 'green',
-                                        ':hover': {
-                                            backgroundColor: 'green',
-                                        }
-                                    }}
-                                >
-                                    Rozpatrz
-                                </Button>
-                            </Link>
-                            :
-                            null
-                            }
-                    </CardActions>
                 </Card>
                 ))}
             </Box>
@@ -130,4 +90,4 @@ const mapStateToProps = state => ({
     isAdmin: state.auth.user.is_superuser
 });
 
-export default connect(mapStateToProps, {})(Choices);
+export default connect(mapStateToProps, {})(ConsideredChoices);
