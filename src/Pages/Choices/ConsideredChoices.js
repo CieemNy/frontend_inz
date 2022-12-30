@@ -60,6 +60,7 @@ const ConsideredChoices = ({isAuthenticated, isAdmin}) => {
                         <Typography>2. {choices.second}</Typography>
                         <Typography>3. {choices.third}</Typography>
                         <Typography>4. {choices.fourth}</Typography>
+                        <Typography mt={2}>Finalny wybór: {choices.final}</Typography>
                         <Card sx={{padding: 1, marginTop: 1}}>
                         <Typography>Data dokonania wyborów: {choices.date}</Typography>
                         {choices.is_considered===true 
