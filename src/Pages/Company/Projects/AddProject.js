@@ -58,7 +58,7 @@ const AddProject = ({isAuthenticated, userID, props}) => {
 
     //TODO: zobaczyć, zeby przekierowywało
     if (state.userCompany !== userID) {
-        return <Navigate to='/'/>
+        return <Navigate to='/home'/>
     }
 
     return (

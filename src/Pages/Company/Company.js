@@ -28,7 +28,7 @@ const Company = ({isAuthenticated, isVerified, isCompany}) => {
     }
 
     if(isCompany===true) {
-        return <Navigate to='/'/>
+        return <Navigate to='/home'/>
     }
 
     return (
