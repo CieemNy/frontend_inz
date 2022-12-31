@@ -311,12 +311,6 @@ const Home = ({isAuthenticated}) => {
                     >
                         <Button 
                             variant="contained"
-                            sx={{
-                                backgroundColor: 'green',
-                                ':hover': {
-                                    backgroundColor: 'green',
-                                }
-                            }}
                             href='final/choices/considered'
                         >
                             Rozpatrzone wybory drużyn
