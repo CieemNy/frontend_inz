@@ -192,6 +192,14 @@ const Home = ({isAuthenticated}) => {
                     {userTeam.map(userTeam => (
                         <>
                             <Typography>{userTeam.name}</Typography>
+                            {userData.is_leader === true 
+                                ?
+                                <>
+                                    <Typography>Kod dostępu do twojego zespołu:</Typography>
+                                    <Typography>{userTeam.access_code}</Typography>
+                                </>
+                                : 
+                            null}
                             <Typography mt={2}>Szczegóły twojego zespołu</Typography>
                             <CardActions
                                 sx={{
@@ -253,7 +261,7 @@ const Home = ({isAuthenticated}) => {
                                         <Typography>3. {userTeamChoices.third}</Typography>
                                         <Typography>4. {userTeamChoices.fourth}</Typography>
                                         <Typography mt={2}>Wybór ostateczny dokonany przez Administratora</Typography>
-                                        <Typography>{userTeamChoices.final}</Typography>
+                                        <Typography variant="h5">{userTeamChoices.final}</Typography>
                                     </>
                                 ))}
                             </>

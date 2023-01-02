@@ -74,7 +74,7 @@ const AddCompany = ({isAuthenticated, isLeader, isMember, isCompany}) => {
                           <TextField 
                               id="name"
                               type="text"
-                              label="Nazwa Firmy"
+                              label="Nazwa Zespołu"
                               variant="outlined"
                               margin="dense"
                               value={formData.name}
