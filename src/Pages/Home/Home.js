@@ -220,6 +220,11 @@ const Home = ({isAuthenticated}) => {
                                     
                                 </Link>
                             </CardActions>
+                            {userTeam.occupied_places < userTeam.places ? 
+                                <Typography mt={2}>Wybory zespołu mogą zostać określone gdy zespół jest skompletowany</Typography>
+                                :
+                                null
+                            }
                             {userData.is_leader===true && userData.is_madeChoices===false && (userTeam.places===userTeam.occupied_places) ?
                             <>
                                 <Typography mt={2}>Określ wybory</Typography>
