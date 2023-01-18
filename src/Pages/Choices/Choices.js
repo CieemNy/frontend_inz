@@ -55,7 +55,7 @@ const Choices = ({isAuthenticated, isAdmin}) => {
                             }}
                     >
                     <CardContent>
-                        <Typography variant="h5">Wybory Team'u: {choices.teamName}</Typography>
+                        <Typography variant="h5">Wybory Zespołu: {choices.teamName}</Typography>
                         <Typography mt={1}>1. {choices.first}</Typography>
                         <Typography>2. {choices.second}</Typography>
                         <Typography>3. {choices.third}</Typography>

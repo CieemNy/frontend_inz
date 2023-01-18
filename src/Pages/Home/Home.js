@@ -313,7 +313,7 @@ const Home = ({isAuthenticated}) => {
                             }}
                             href='final/choices'
                         >
-                            Rozpatrz wybory drużyn
+                            Rozpatrz wybory zespołów
                         </Button>
                     </CardActions>
                     <CardActions
@@ -326,7 +326,7 @@ const Home = ({isAuthenticated}) => {
                             variant="contained"
                             href='final/choices/considered'
                         >
-                            Rozpatrzone wybory drużyn
+                            Rozpatrzone wybory zespołów
                         </Button>
                     </CardActions>
                     <CardActions
@@ -345,7 +345,7 @@ const Home = ({isAuthenticated}) => {
                             }}
                             href='final/choices/list'
                         >
-                            Finalna lista przypisanych drużyn do firm
+                            Finalna lista przypisanych zespołów do firm
                         </Button>
                     </CardActions>
                 </CardContent>

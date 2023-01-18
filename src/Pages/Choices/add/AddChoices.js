@@ -94,7 +94,7 @@ const AddChoices = ({isAuthenticated, isMadeChoices, userID}) => {
               <Box>
                   <Stack spacing={2}>
                       <Item>
-                          <Typography>DOKONAJ WYBORÓW FIRM SWOJEJ DRUŻYNY</Typography>
+                          <Typography>DOKONAJ WYBORÓW FIRM SWOJEGO ZESPOŁU</Typography>
                       </Item>
                   </Stack>
               </Box>

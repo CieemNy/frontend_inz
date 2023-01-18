@@ -129,7 +129,7 @@ const CompanyDetail = ({isAuthenticated, isLeader, isMember, isCompany}) => {
 
                         }}
                     >
-                        <Typography>Nazwa Team'u</Typography>
+                        <Typography>Nazwa Zespołu</Typography>
                         <Typography 
                             variant='h5'
                         >
@@ -154,7 +154,7 @@ const CompanyDetail = ({isAuthenticated, isLeader, isMember, isCompany}) => {
                             {team.places} 
                         </Typography>
                         <Divider sx={{marginTop: 2}}/>
-                        <Typography mt={2} variant='h5'>Członkowie</Typography>
+                        <Typography mt={2} variant='h5'>Członkowie Zespołu</Typography>
                         {members.map(members => (
                             <Typography key={members.id} mt={2}>
                                 {members.member}
