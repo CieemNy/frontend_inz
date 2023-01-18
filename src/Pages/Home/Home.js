@@ -73,20 +73,34 @@ const Home = ({isAuthenticated}) => {
                     justifyContent: 'center',
                 }}
             >
-                <Typography variant="h6">Jesteś Przedstawicielem Firmy? Kliknij przycisk obok, żeby dodać wizytówkę swojej firmy</Typography>
-                <Button 
+                <CardContent
                     sx={{
-                        marginLeft: 5,
-                        backgroundColor: 'green',
-                        ':hover': {
-                            backgroundColor: 'green',
-                        }
+                        justifyContent: 'center',
+                        textAlign: 'center'
                     }}
-                    variant="contained"
-                    href='/company/add'
                 >
-                    Dodaj
-                </Button>
+                    <Typography variant="h5" gutterBottom>Witaj {userData.email}!</Typography>
+                    <Typography variant="h6">Aby stworzyć wizytówkę Firmy, kliknij poniższy przycisk</Typography>
+                        <CardActions
+                            sx={{
+                                display: 'flex',
+                                justifyContent: 'center',
+                            }}
+                        >
+                        <Button 
+                            sx={{
+                                backgroundColor: 'green',
+                                ':hover': {
+                                    backgroundColor: 'green',
+                                }
+                            }}
+                            variant="contained"
+                            href='/company/add'
+                        >
+                            Dodaj
+                        </Button>
+                    </CardActions>
+                </CardContent>
             </Card>
         );
     };
@@ -109,7 +123,7 @@ const Home = ({isAuthenticated}) => {
                         textAlign: 'center'
                     }}
                 >
-                    <Typography variant="h6" gutterBottom>Witaj {userData.name} {userData.surname}!</Typography>
+                    <Typography variant="h6" gutterBottom>Witaj {userData.email}!</Typography>
                     <Typography>Twoja firma</Typography>
                     {userCompany.map(userCompany => (
                         <>
@@ -187,7 +201,7 @@ const Home = ({isAuthenticated}) => {
                         textAlign: 'center'
                     }}
                 >
-                    <Typography variant="h6" gutterBottom>Witaj {userData.name} {userData.surname}!</Typography>
+                    <Typography variant="h6" gutterBottom>Witaj {userData.email}!</Typography>
                     <Typography>Twój Zespół</Typography>
                     {userTeam.map(userTeam => (
                         <>
@@ -296,7 +310,7 @@ const Home = ({isAuthenticated}) => {
                         textAlign: 'center'
                     }}
                 >
-                    <Typography variant="h6" gutterBottom>Witaj {userData.name} {userData.surname}!</Typography>
+                    <Typography variant="h6" gutterBottom>Witaj {userData.email}!</Typography>
                     <CardActions
                         sx={{
                             display: 'flex',
@@ -372,11 +386,23 @@ const Home = ({isAuthenticated}) => {
                         justifyContent: 'center',
                         textAlign: 'center'
                     }}
-                >
-                    <Typography variant="h6" gutterBottom>Witaj {userData.name} {userData.surname}!</Typography>
-                </CardContent>
+                    >
+                        <Typography variant="h6" gutterBottom>Witaj {userData.email}!</Typography>
+                    </CardContent>
                 :
                 null
+                }
+                {userData.is_company===true && userData.is_verified===false ?
+                    <CardContent
+                    sx={{
+                        justifyContent: 'center',
+                        textAlign: 'center'
+                    }}
+                    >
+                        <Typography variant="h6" gutterBottom>Witaj {userData.email}!</Typography>
+                    </CardContent>
+                    :
+                    null
                 }
                 {userData.is_superuser===true ? adminWelcome() : null}
             </Box>
