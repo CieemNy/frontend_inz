@@ -123,7 +123,7 @@ export const register = (email, name, surname, password, re_password, is_company
         dispatch({
             type: REGISTER_FAIL
         })
-        dispatch(setAlert('Twój email znajduje się w naszej bazie lub twoje hasło jest zbyt powszechne!', 'error'));
+        dispatch(setAlert('Twój email znajduje się w naszej bazie danych!', 'error'));
     }
 };
 
