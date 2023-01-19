@@ -104,7 +104,7 @@ const CompanyDetail = ({isAuthenticated, isLeader, isMember, isCompany}) => {
         <Container
             sx={{
                 justifyContent: 'center',
-                marginTop: 15
+                marginTop: 5
             }}
         >
             <Box 

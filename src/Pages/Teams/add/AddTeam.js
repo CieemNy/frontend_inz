@@ -4,6 +4,7 @@ import { Container, Box, Stack, Paper, TextField, Button, Typography, MenuItem} 
 import { styled } from '@mui/material/styles';
 import axios from "axios";
 import { connect } from "react-redux";
+import Swal from 'sweetalert2';
 
 const Item = styled(Paper)(({ theme }) => ({
     ...theme.typography.body2,
@@ -31,9 +32,20 @@ const AddCompany = ({isAuthenticated, isLeader, isMember, isCompany}) => {
           }
           })
         } catch (e) {
-          alert(e)
+            Swal.fire({
+                icon: 'error',
+                text: 'Wystąpił błąd!',
+            })
+          return false;
         }
-        setTeamCreated(true);
+        Swal.fire({
+            icon: 'success',
+            text: 'Stworzyłeś Zespół!',
+        }).then(okay => {
+            if(okay){
+                setTeamCreated(true);
+            }
+        })
     };
 
     if(teamCreated) {
@@ -55,7 +67,7 @@ const AddCompany = ({isAuthenticated, isLeader, isMember, isCompany}) => {
     return (
         <Container sx={{
             justifyContent: 'center',
-            marginTop: 15
+            marginTop: 5
         }}>
               <Box>
                   <Stack spacing={2}>
