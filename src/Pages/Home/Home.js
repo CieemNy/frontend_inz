@@ -300,8 +300,6 @@ const Home = ({isAuthenticated}) => {
                     padding: 2, 
                     margin: 2,
                     justifyContent: 'center',
-                    minWidth: 300,
-                    minHeight: 300
                 }}
             >
                 <CardContent
