@@ -4,6 +4,7 @@ import { Container, Box, Stack, Paper, TextField, Button, Typography, MenuItem} 
 import { styled } from '@mui/material/styles';
 import axios from "axios";
 import { connect } from "react-redux";
+import Swal from 'sweetalert2';
 
 const Item = styled(Paper)(({ theme }) => ({
     ...theme.typography.body2,
@@ -33,9 +34,20 @@ const AddCompany = ({isAuthenticated, isCompanyOwner}) => {
           }
           })
         } catch (e) {
-          alert(e)
+            Swal.fire({
+                icon: 'error',
+                text: 'Wystąpił błąd!',
+            })
+          return false;
         }
-        setCompanyCreated(true);
+        Swal.fire({
+            icon: 'success',
+            text: 'Stworzyłeś Wizytówkę Firmy!',
+        }).then(okay => {
+            if(okay){
+                setCompanyCreated(true);
+            }
+        })
     };
 
     if(companyCreated) {
@@ -58,7 +70,7 @@ const AddCompany = ({isAuthenticated, isCompanyOwner}) => {
               <Box>
                   <Stack spacing={2}>
                       <Item>
-                          <Typography>DODAJ FIRME</Typography>
+                          <Typography>STWÓRZ WIZYTÓWKĘ FIRMY</Typography>
                       </Item>
                   </Stack>
               </Box>

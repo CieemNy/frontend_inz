@@ -86,7 +86,7 @@ const CompanyDetail = ({isAuthenticated}) => {
                         >
                             {company.companyMan}
                         </Typography>
-                        <Typography mt={2}>Mail Kontaktowy</Typography>
+                        <Typography mt={2}>E-mail Kontaktowy</Typography>
                         <Typography
                             variant='h6'
                         >
