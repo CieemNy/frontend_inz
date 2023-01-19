@@ -43,7 +43,7 @@ const CompanyDetail = ({isAuthenticated, isLeader, isMember, isCompany}) => {
         } catch (e) {
             Swal.fire({
                 icon: 'error',
-                text: 'Wystąpił błąd! Niepoprawny kod dostępu do zespołu!',
+                text: 'Wystąpił błąd!',
             })
           return false;
         }
