@@ -17,7 +17,7 @@ const CompanyDetail = ({isAuthenticated, isLeader, isMember, isCompany}) => {
     const onChange = e => setFormData({ formData, [e.target.name]: e.target.value });
 
     const getTeam = async () => {
-        const {data: res} = await axios.get(`http://localhost:8000/accounts/teams/${teamId}`,{
+        const {data: res} = await axios.get(`${process.env.REACT_APP_API_URL}/accounts/teams/${teamId}`,{
             headers: {
                 'Authorization': `JWT ${localStorage.getItem('access')}`
             }
@@ -25,7 +25,7 @@ const CompanyDetail = ({isAuthenticated, isLeader, isMember, isCompany}) => {
         setTeam(res);
     }
     const getMembers = async () => {
-        const {data: res} = await axios.get(`http://localhost:8000/accounts/teams/${teamId}/members`,{
+        const {data: res} = await axios.get(`${process.env.REACT_APP_API_URL}/accounts/teams/${teamId}/members`,{
             headers: {
                 'Authorization': `JWT ${localStorage.getItem('access')}`
             }
@@ -35,7 +35,7 @@ const CompanyDetail = ({isAuthenticated, isLeader, isMember, isCompany}) => {
     const joinTeam = async (e) => {
         e.preventDefault();
         try {
-          const res = await axios.post(`http://localhost:8000/accounts/teams/${teamId}/join`, formData, {
+          const res = await axios.post(`${process.env.REACT_APP_API_URL}/accounts/teams/${teamId}/join`, formData, {
             headers: {
               'Authorization': `JWT ${localStorage.getItem('access')}`
           },
