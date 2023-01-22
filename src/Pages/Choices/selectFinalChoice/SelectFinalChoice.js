@@ -22,7 +22,7 @@ const SelectFinalChoice = ({isAuthenticated, isAdmin}) => {
     const onSubmit = async (e) => {
         e.preventDefault();
         try {
-            const res = await axios.put(`http://localhost:8000/accounts/teams/choices/${choiceId}/finalchoice`, formData, {
+            const res = await axios.put(`${process.env.REACT_APP_API_URL}/accounts/teams/choices/${choiceId}/finalchoice`, formData, {
               headers: {
                 'Authorization': `JWT ${localStorage.getItem('access')}`
             }
@@ -45,7 +45,7 @@ const SelectFinalChoice = ({isAuthenticated, isAdmin}) => {
     };
 
     const getCompanies = async () => {
-        const {data: res} = await axios.get(`http://localhost:8000/accounts/company`,{
+        const {data: res} = await axios.get(`${process.env.REACT_APP_API_URL}/accounts/company`,{
             headers: {
                 'Authorization': `JWT ${localStorage.getItem('access')}`
             }
@@ -54,7 +54,7 @@ const SelectFinalChoice = ({isAuthenticated, isAdmin}) => {
     }
 
     const getAvailableCompanies = async () => {
-        const {data: res} = await axios.get(`http://localhost:8000/accounts/company/places`,{
+        const {data: res} = await axios.get(`${process.env.REACT_APP_API_URL}/accounts/company/places`,{
             headers: {
                 'Authorization': `JWT ${localStorage.getItem('access')}`
             }
@@ -64,7 +64,7 @@ const SelectFinalChoice = ({isAuthenticated, isAdmin}) => {
 
 
     const getChoice = async () => {
-        const {data: res} = await axios.get(`http://localhost:8000/accounts/teams/choices/${choiceId}`,{
+        const {data: res} = await axios.get(`${process.env.REACT_APP_API_URL}/accounts/teams/choices/${choiceId}`,{
             headers: {
                 'Authorization': `JWT ${localStorage.getItem('access')}`
             }
