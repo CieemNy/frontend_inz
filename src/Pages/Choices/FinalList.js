@@ -10,7 +10,7 @@ const SelectFinalChoice = ({isAuthenticated, isAdmin}) => {
     const [list, setList] = useState([]);
 
     const getList = async () => {
-        const {data: res} = await axios.get(`http://localhost:8000/accounts/teams/choices/list`,{
+        const {data: res} = await axios.get(`${process.env.REACT_APP_API_URL}/accounts/teams/choices/list`,{
             headers: {
                 'Authorization': `JWT ${localStorage.getItem('access')}`
             }
