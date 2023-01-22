@@ -26,7 +26,7 @@ const AddCompany = ({isAuthenticated, isLeader, isMember, isCompany}) => {
     const onSubmit = async (e) => {
         e.preventDefault();
         try {
-          const res = await axios.post('http://localhost:8000/accounts/teams/create', formData, {
+          const res = await axios.post(`${process.env.REACT_APP_API_URL}/accounts/teams/create`, formData, {
             headers: {
               'Authorization': `JWT ${localStorage.getItem('access')}`
           }

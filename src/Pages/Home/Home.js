@@ -24,7 +24,7 @@ const Home = ({isAuthenticated}) => {
     }, [])
 
     const getUserCompany = async () => {
-        const {data: res} = await axios.get(`http://localhost:8000/accounts/user/company`,{
+        const {data: res} = await axios.get(`${process.env.REACT_APP_API_URL}/accounts/user/company`,{
             headers: {
                 'Authorization': `JWT ${localStorage.getItem('access')}`
             }
@@ -33,7 +33,7 @@ const Home = ({isAuthenticated}) => {
     }
 
     const getUserTeam = async () => {
-        const {data: res} = await axios.get(`http://localhost:8000/accounts/user/team`,{
+        const {data: res} = await axios.get(`${process.env.REACT_APP_API_URL}/accounts/user/team`,{
             headers: {
                 'Authorization': `JWT ${localStorage.getItem('access')}`
             }
@@ -42,7 +42,7 @@ const Home = ({isAuthenticated}) => {
     }
 
     const getUserTeamChoices = async () => {
-        const {data: res} = await axios.get(`http://localhost:8000/accounts/user/team/choices`,{
+        const {data: res} = await axios.get(`${process.env.REACT_APP_API_URL}/accounts/user/team/choices`,{
             headers: {
                 'Authorization': `JWT ${localStorage.getItem('access')}`
             }

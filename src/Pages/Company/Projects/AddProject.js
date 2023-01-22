@@ -30,7 +30,7 @@ const AddProject = ({isAuthenticated, userID, props}) => {
     const onSubmit = async (e) => {
         e.preventDefault();
         try {
-          const res = await axios.post(`http://localhost:8000/accounts/company/${companyId}/projects/add`, formData, {
+          const res = await axios.post(`${process.env.REACT_APP_API_URL}/accounts/company/${companyId}/projects/add`, formData, {
             headers: {
               'Authorization': `JWT ${localStorage.getItem('access')}`
           }

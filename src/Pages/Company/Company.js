@@ -9,7 +9,7 @@ const Company = ({isAuthenticated, isVerified, isCompany}) => {
     const [companies, setCompanies] = useState([]);
     const [didFetch, setDidFetch] = useState(false);
     const getCompanies = async () => {
-        const {data: res} = await axios.get(`http://localhost:8000/accounts/company`,{
+        const {data: res} = await axios.get(`${process.env.REACT_APP_API_URL}/accounts/company`,{
             headers: {
                 'Authorization': `JWT ${localStorage.getItem('access')}`
             }
