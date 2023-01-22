@@ -11,7 +11,7 @@ const CompanyDetail = ({isAuthenticated}) => {
     const [projects, setProjects] = useState([]);
     const [didFetch, setDidFetch] = useState(false);
     const getCompany = async () => {
-        const {data: res} = await axios.get(`http://localhost:8000/accounts/company/${companiesId}`,{
+        const {data: res} = await axios.get(`${process.env.REACT_APP_API_URL}/accounts/company/${companiesId}`,{
             headers: {
                 'Authorization': `JWT ${localStorage.getItem('access')}`
             }
@@ -19,7 +19,7 @@ const CompanyDetail = ({isAuthenticated}) => {
         setCompany(res);
     }
     const getProjects = async () => {
-        const {data: res} = await axios.get(`http://localhost:8000/accounts/company/${companiesId}/projects/`,{
+        const {data: res} = await axios.get(`${process.env.REACT_APP_API_URL}/accounts/company/${companiesId}/projects/`,{
             headers: {
                 'Authorization': `JWT ${localStorage.getItem('access')}`
             }
