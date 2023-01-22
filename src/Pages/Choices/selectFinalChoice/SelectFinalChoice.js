@@ -148,7 +148,7 @@ const SelectFinalChoice = ({isAuthenticated, isAdmin}) => {
                         }}
                 >
                 <CardContent>
-                    <Typography variant="h5">Wybory Team'u: {choice.teamName}</Typography>
+                    <Typography variant="h5">Wybory Zespołu: {choice.teamName}</Typography>
                     <Typography mt={1}>1. {choice.first}</Typography>
                     <Typography>2. {choice.second}</Typography>
                     <Typography>3. {choice.third}</Typography>
