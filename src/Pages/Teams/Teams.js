@@ -8,7 +8,7 @@ const Teams = ({isAuthenticated, isLeader, isMember, isCompany}) => {
     const [teams, setTeams] = useState([]);
     const [didFetch, setDidFetch] = useState(false);
     const getTeams = async () => {
-        const {data: res} = await axios.get(`http://localhost:8000/accounts/teams`,{
+        const {data: res} = await axios.get(`${process.env.REACT_APP_API_URL}/accounts/teams`,{
             headers: {
                 'Authorization': `JWT ${localStorage.getItem('access')}`
             }
