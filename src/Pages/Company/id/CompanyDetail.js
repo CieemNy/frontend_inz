@@ -1,7 +1,7 @@
 import axios from 'axios';
 import React, {useEffect, useState} from 'react';
 import { useParams, Navigate } from 'react-router-dom';
-import { Box, Card, CardContent, CardActions, Container, Typography } from '@mui/material';
+import { Box, Card, CardContent, Container, Typography } from '@mui/material';
 import { connect } from 'react-redux';
 
 
