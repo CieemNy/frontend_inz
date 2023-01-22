@@ -33,7 +33,7 @@ const AddChoices = ({isAuthenticated, isMadeChoices, userID}) => {
     const onSubmit = async (e) => {
         e.preventDefault();
         try {
-            const res = await axios.post(`http://localhost:8000/accounts/teams/${teamId}/choices/add`, formData, {
+            const res = await axios.post(`${process.env.REACT_APP_API_URL}/accounts/teams/${teamId}/choices/add`, formData, {
               headers: {
                 'Authorization': `JWT ${localStorage.getItem('access')}`
             }
@@ -56,7 +56,7 @@ const AddChoices = ({isAuthenticated, isMadeChoices, userID}) => {
     };
 
     const getCompanies = async () => {
-        const {data: res} = await axios.get(`http://localhost:8000/accounts/company`,{
+        const {data: res} = await axios.get(`${process.env.REACT_APP_API_URL}/accounts/company`,{
             headers: {
                 'Authorization': `JWT ${localStorage.getItem('access')}`
             }
